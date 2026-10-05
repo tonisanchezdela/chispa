@@ -1,0 +1,15 @@
+{
+  "name": "Chispa",
+  "short_name": "Chispa",
+  "description": "Gasolineras y cargadores eléctricos más baratos cerca de ti",
+  "lang": "es",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#E4F7FF",
+  "theme_color": "#FF9A3C",
+  "icons": [
+    {"src": "icono-192.png", "sizes": "192x192", "type": "image/png"},
+    {"src": "icono-512.png", "sizes": "512x512", "type": "image/png"}
+  ]
+}
