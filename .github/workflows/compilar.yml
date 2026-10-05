@@ -1,3 +1,4 @@
+# Compila la APK y el AAB de Chispa en cada cambio de la app
 name: Compilar APK
 
 on:
