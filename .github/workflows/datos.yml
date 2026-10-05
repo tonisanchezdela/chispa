@@ -1,0 +1,54 @@
+name: Actualizar datos
+
+# Los precios se publican en la rama «datos». La app los descarga al abrirse,
+# así que no hace falta publicar una versión nueva para tener precios al día.
+on:
+  schedule:
+    - cron: "17 6 * * *"    # gasolineras, cada día (8:17 en España en verano)
+    - cron: "17 11 * * *"   # respaldo a mediodía
+    - cron: "40 4 1,15 * *" # cargadores, días 1 y 15
+  workflow_dispatch:
+    inputs:
+      cargadores:
+        description: Actualizar también los cargadores eléctricos
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+jobs:
+  datos:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Datos publicados hasta ahora
+        run: |
+          mkdir -p _datos
+          base=https://raw.githubusercontent.com/${{ github.repository }}/datos
+          curl -fsSL "$base/stations.json" -o _datos/stations.json || cp app/src/main/assets/stations.json _datos/stations.json
+          curl -fsSL "$base/fuel.json" -o _datos/fuel.json || cp app/src/main/assets/fuel.json _datos/fuel.json
+
+      - name: Gasolineras (precios oficiales del Ministerio)
+        run: |
+          fecha=$(python3 datos/miteco.py estaciones.csv)
+          python3 datos/gasolineras.py estaciones.csv "$fecha" fuel_nuevo.json
+          mv fuel_nuevo.json _datos/fuel.json
+
+      - name: Cargadores (Open Charge Map)
+        if: github.event.schedule == '40 4 1,15 * *' || inputs.cargadores
+        run: |
+          git clone --depth 1 --filter=blob:none --sparse https://github.com/openchargemap/ocm-export
+          git -C ocm-export sparse-checkout set data/ES
+          fecha=$(git -C ocm-export log -1 --format=%cs)
+          python3 datos/cargadores.py _datos/stations.json ocm-export "$fecha" stations_nuevo.json
+          mv stations_nuevo.json _datos/stations.json
+
+      - name: Publicar en la rama datos
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: datos
+          folder: _datos
+          single-commit: true
+          commit-message: Datos actualizados

@@ -1,0 +1,8 @@
+<resources>
+    <style name="Theme.Chispa" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/tinta</item>
+        <item name="colorPrimaryDark">@color/tinta</item>
+        <item name="colorAccent">@color/tinta</item>
+        <item name="android:windowBackground">@color/fondo</item>
+    </style>
+</resources>
