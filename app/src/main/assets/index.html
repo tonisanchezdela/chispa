@@ -625,9 +625,18 @@ $('#sform').addEventListener('submit',e=>{e.preventDefault();if(!DE)return;if(sb
     if(c){setCenter(c[1],c[2],'CP '+v+' (aprox.)');toast('No tenemos ese código postal exacto. Te situamos en el más próximo: '+c[0]+'.')}else toast('No encontramos ese código postal.')}
   else toast('No encontramos ese sitio. Prueba con el nombre del pueblo o el código postal, o márcalo en el mapa.')});
 document.addEventListener('pointerdown',e=>{if(!e.target.closest('.sbox'))sb.hidden=true});
-$('#gps').onclick=()=>{const fail=()=>toast('No se ha podido obtener tu ubicación. Revisa el permiso de ubicación, o escribe tu pueblo o código postal, o pulsa «Marcar en el mapa».');
-  if(!navigator.geolocation)return fail();
-  try{navigator.geolocation.getCurrentPosition(p=>setCenter(p.coords.latitude,p.coords.longitude,'tu ubicación'),fail,{timeout:15000,maximumAge:60000,enableHighAccuracy:true})}catch(e){fail()}};
+const UBI_MSG={permiso:'Chispa no tiene permiso de ubicación. Dáselo en los ajustes del móvil, o escribe tu pueblo o código postal.',apagada:'La ubicación del móvil está desactivada. Actívala y vuelve a pulsar «Cerca de mí».',sin_senal:'No se ha podido fijar tu posición. Prueba otra vez al aire libre, o escribe tu pueblo o código postal.'};
+let ubiBusy=false;
+function ubiOk(la,lo){ubiBusy=false;setCenter(la,lo,'tu ubicación');toast('Listo: buscando alrededor de tu ubicación.')}
+function ubiFail(c){ubiBusy=false;toast(UBI_MSG[c]||UBI_MSG.sin_senal)}
+window.__ubi=(la,lo,err)=>{err?ubiFail(err):ubiOk(la,lo)};
+$('#gps').onclick=()=>{if(ubiBusy)return;ubiBusy=true;toast('Buscando tu ubicación…');
+  setTimeout(()=>{if(ubiBusy)ubiFail('sin_senal')},40000);
+  if(window.Android&&window.Android.ubicacion){try{window.Android.ubicacion();return}catch(e){}}
+  if(!navigator.geolocation)return ubiFail('sin_senal');
+  const ok=p=>{if(ubiBusy)ubiOk(p.coords.latitude,p.coords.longitude)};
+  const precisa=()=>navigator.geolocation.getCurrentPosition(ok,e=>{if(ubiBusy)ubiFail(e&&e.code===1?'permiso':'sin_senal')},{timeout:20000,maximumAge:120000,enableHighAccuracy:true});
+  try{navigator.geolocation.getCurrentPosition(ok,e=>{if(!ubiBusy)return;if(e&&e.code===1)ubiFail('permiso');else precisa()},{timeout:8000,maximumAge:300000,enableHighAccuracy:false})}catch(e){ubiFail('sin_senal')}};
 
 /* ---------- controles ---------- */
 function pOut(){const lo=st.pmin>M.min,hi=st.pmax<M.max,u=' '+M.unit;$('#pOut').textContent=!lo&&!hi?'cualquiera':lo&&hi?'de '+fp(st.pmin)+' a '+fp(st.pmax)+u:lo?'desde '+fp(st.pmin)+u:'hasta '+fp(st.pmax)+u}

@@ -5,6 +5,11 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Configuration
+import android.location.Location
+import android.location.LocationManager
+import android.os.CancellationSignal
+import android.os.Handler
+import android.os.Looper
 import android.net.Uri
 import android.os.Bundle
 import android.webkit.GeolocationPermissions
@@ -19,6 +24,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.location.LocationManagerCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
@@ -39,6 +45,64 @@ class MainActivity : AppCompatActivity() {
             geoRespuesta = null
             geoOrigen = null
         }
+
+    private val pedirUbicacionNativa =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { res ->
+            if (res.values.any { it }) buscarUbicacion() else responderUbicacion(null, "permiso")
+        }
+
+    private fun responderUbicacion(l: Location?, error: String?) {
+        val js = if (l != null) "window.__ubi&&window.__ubi(" + l.latitude + "," + l.longitude + ",null)"
+        else "window.__ubi&&window.__ubi(0,0,'" + (error ?: "sin_senal") + "')"
+        runOnUiThread { web.evaluateJavascript(js, null) }
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun buscarUbicacion() {
+        val lm = getSystemService(LOCATION_SERVICE) as LocationManager
+        if (!LocationManagerCompat.isLocationEnabled(lm)) {
+            responderUbicacion(null, "apagada")
+            return
+        }
+        val activos = try { lm.getProviders(true) } catch (e: Exception) { emptyList<String>() }
+        var mejor: Location? = null
+        for (p in activos) {
+            val l = try { lm.getLastKnownLocation(p) } catch (e: Exception) { null } ?: continue
+            val m = mejor
+            if (m == null || l.time > m.time) mejor = l
+        }
+        val ultima = mejor
+        if (ultima != null && System.currentTimeMillis() - ultima.time < 5 * 60 * 1000) {
+            responderUbicacion(ultima, null)
+            return
+        }
+        val orden = listOf("fused", LocationManager.NETWORK_PROVIDER, LocationManager.GPS_PROVIDER).filter { activos.contains(it) }
+        if (orden.isEmpty()) {
+            if (ultima != null) responderUbicacion(ultima, null) else responderUbicacion(null, "sin_senal")
+            return
+        }
+        var hecho = false
+        val senal = CancellationSignal()
+        Handler(Looper.getMainLooper()).postDelayed({
+            if (!hecho) {
+                hecho = true
+                senal.cancel()
+                if (ultima != null) responderUbicacion(ultima, null) else responderUbicacion(null, "sin_senal")
+            }
+        }, 20000)
+        for (p in orden) {
+            try {
+                LocationManagerCompat.getCurrentLocation(lm, p, senal, ContextCompat.getMainExecutor(this)) { l: Location? ->
+                    if (l != null && !hecho) {
+                        hecho = true
+                        senal.cancel()
+                        responderUbicacion(l, null)
+                    }
+                }
+            } catch (e: Exception) {
+            }
+        }
+    }
 
     private fun tieneUbicacion(): Boolean =
         ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
@@ -138,6 +202,24 @@ class MainActivity : AppCompatActivity() {
     }
 
     inner class Puente {
+
+        /** Ubicación del móvil, pedida directamente a Android. Responde llamando a window.__ubi(lat, lon, error). */
+        @JavascriptInterface
+        fun ubicacion() {
+            runOnUiThread {
+                if (tieneUbicacion()) {
+                    buscarUbicacion()
+                } else {
+                    try {
+                        pedirUbicacionNativa.launch(
+                            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
+                        )
+                    } catch (e: Exception) {
+                        responderUbicacion(null, "permiso")
+                    }
+                }
+            }
+        }
 
         /** Abre la app del operador si está instalada; si no, su ficha en Google Play para instalarla. */
         @JavascriptInterface
