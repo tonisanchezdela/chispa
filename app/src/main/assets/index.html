@@ -29,6 +29,7 @@ button,input{font:inherit;color:inherit}
 .hero{background:var(--heroc,var(--teal));transition:background .25s;color:var(--onpop);display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:8px;padding:20px 22px;overflow:hidden;position:relative;border-color:var(--onpop)}
 .brand{display:flex;align-items:center;gap:8px;font-family:var(--display);font-weight:700;font-size:20px}
 .brand svg{width:30px;height:30px}
+.brand .by{font-family:var(--body);font-size:11px;font-weight:600;letter-spacing:.02em;opacity:.8;align-self:flex-end;margin:0 0 4px 2px}
 .hero h1{font-size:clamp(28px,4.6vw,48px);line-height:1.02;font-weight:700;margin-top:10px}
 .hero h1 em{font-style:normal;background:var(--sun);padding:0 .18em;border-radius:10px;border:var(--bw) solid var(--onpop);display:inline-block;transform:rotate(-2deg)}
 .hero p{margin:10px 0 0;max-width:44ch;font-weight:500}
@@ -230,7 +231,7 @@ footer a{color:inherit;font-weight:700}
 <div class="wrap">
   <header class="hero stick" id="hero" data-g="d" style="--heroc:#FF9A3C">
     <div>
-      <div class="brand"><svg viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="13" fill="#FFC93C" stroke="#1B1464" stroke-width="2.5"/><path d="M17 5 8 17h5.5L12 25l10-13h-6z" fill="#1B1464"/></svg>Chispa</div>
+      <div class="brand"><svg viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="13" fill="#FFC93C" stroke="#1B1464" stroke-width="2.5"/><path d="M17 5 8 17h5.5L12 25l10-13h-6z" fill="#1B1464"/></svg>Chispa<small class="by">by Toyosoft</small></div>
       <h1 id="h1">Reposta tu coche <em>más barato</em> y más cerca</h1>
     </div>
     <div class="art" aria-hidden="true">
