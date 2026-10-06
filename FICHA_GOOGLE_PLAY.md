@@ -42,6 +42,9 @@ Por rango de precio, por marca y, en gasolineras, solo las abiertas 24 horas. Or
 🧮 CUÁNTO TE VA A COSTAR
 Indica los litros o los kWh que quieres y verás el importe aproximado en cada sitio.
 
+🔔 AVISO DE BAJADAS
+Activa el aviso en tu zona y recibirás una notificación cuando baje el precio más barato de tu combustible.
+
 🧭 FICHA COMPLETA
 Todos los precios de la gasolinera, horario, conectores del cargador, fotos cuando las hay, y un botón para ir con Google Maps. En los cargadores, un botón abre directamente la app del operador para iniciar la recarga.
 
@@ -60,6 +63,7 @@ Datos: Open Charge Map y sus colaboradores (CC BY 4.0) y Ministerio para la Tran
 | Icono de la app (512 × 512) | icono-512.png |
 | Gráfico destacado (1024 × 500) | cabecera-1024x500.png |
 | Capturas de pantalla del teléfono (mín. 2) | captura-1.png … captura-7.png |
+| Vídeo (URL de YouTube) | sube el vídeo a YouTube como Público u Oculto, sin anuncios, y pega aquí el enlace |
 
 ## 3. Detalles de la tienda (Presencia en Play Store → Configuración de la tienda)
 
@@ -98,7 +102,7 @@ https://github.com/tonisanchezdela/chispa/blob/main/PRIVACIDAD.md
 
 La ubicación solo se usa dentro del teléfono para calcular distancias y no sale del dispositivo, así que según los criterios de Google no cuenta como dato «recopilado».
 
-**Permisos:** Internet y ubicación (aproximada y precisa), solo mientras se usa la app. Si Play Console pregunta por el uso de la ubicación: «Mostrar las gasolineras y cargadores más cercanos al usuario cuando pulsa "Cerca de mí"». No usa ubicación en segundo plano.
+**Permisos:** Internet, ubicación (aproximada y precisa) solo mientras se usa la app, y notificaciones (para el aviso de bajada de precio, opcional). Si Play Console pregunta por el uso de la ubicación: «Mostrar las gasolineras y cargadores más cercanos al usuario cuando pulsa "Cerca de mí"». No usa ubicación en segundo plano.
 
 ## 5. Prueba cerrada (obligatoria en cuentas personales nuevas)
 

@@ -1,6 +1,6 @@
 # Política de privacidad de Chispa
 
-Última actualización: 5 de octubre de 2026
+Última actualización: 6 de octubre de 2026
 
 Chispa es una app gratuita para encontrar cargadores de coche eléctrico y gasolineras en España al mejor precio. No tiene anuncios, no pide registro, no vende datos y no usa herramientas de analítica ni de seguimiento.
 
@@ -9,6 +9,8 @@ Chispa es una app gratuita para encontrar cargadores de coche eléctrico y gasol
 **Ubicación.** Si pulsas «Cerca de mí», la app pide permiso para conocer tu ubicación. Se usa solo en tu móvil, en ese momento, para calcular la distancia a cada cargador o gasolinera. Tu ubicación no se envía a ningún servidor ni se guarda en ningún sitio fuera del teléfono. Puedes usar la app sin dar este permiso, escribiendo un pueblo o código postal o marcando un punto en el mapa.
 
 **Preferencias.** El último punto de búsqueda, el radio y el tipo de combustible elegidos se guardan únicamente en tu teléfono para que la app se abra como la dejaste.
+
+**Avisos de bajada de precio (solo Android, opcional).** Si pulsas «Avisarme si baja», la app guarda en tu teléfono la zona, el radio y el combustible elegidos y pide permiso para enviar notificaciones. Cada pocas horas descarga en segundo plano los precios públicos y los compara en el propio teléfono. No usa el GPS en segundo plano y no envía tu zona a ningún servidor. Puedes quitar el aviso pulsando de nuevo el botón.
 
 La app no recoge nombre, correo, teléfono, contactos ni ningún identificador tuyo.
 
