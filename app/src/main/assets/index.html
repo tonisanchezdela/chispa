@@ -1,4 +1,4 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Chispa"><meta name="theme-color" content="#FF9A3C"><script>window.CHISPA_REMOTE="https://raw.githubusercontent.com/tonisanchezdela/chispa/datos/";</script></head><body>
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Chispa"><meta name="theme-color" content="#A9DFFF"><script>window.CHISPA_REMOTE="https://raw.githubusercontent.com/tonisanchezdela/chispa/datos/";</script></head><body>
 <title>Chispa Cargadores</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Figtree:wght@400;500;600;700&display=swap">
 <style>
@@ -42,7 +42,7 @@ button,input{font:inherit;color:inherit}
 .mode b{font-family:var(--display);font-size:18px;font-weight:600;line-height:1.1}
 .mode small{font-size:12px;font-weight:600;opacity:.75}
 .mode:hover{transform:translateY(-2px)}
-.mode[aria-pressed="true"]{background:#FF4F79;color:#fff;box-shadow:4px 4px 0 #1B1464;transform:translate(-2px,-2px)}
+.mode[aria-pressed="true"]{background:#FFC93C;box-shadow:4px 4px 0 #1B1464;transform:translate(-2px,-2px)}
 .hero[data-g="e"] #artF,.hero[data-g="e"] #embF,.hero:not([data-g="e"]) #artE,.hero:not([data-g="e"]) #embE{display:none}
 .hero .chips .chip{background:#fff;color:#1B1464;border-color:#1B1464}
 .hero .chips .chip[aria-pressed="true"]{background:#1B1464;color:#fff;box-shadow:none}
@@ -230,7 +230,7 @@ footer a{color:inherit;font-weight:700}
 </svg>
 
 <div class="wrap">
-  <header class="hero stick" id="hero" data-g="d" style="--heroc:#FF9A3C">
+  <header class="hero stick" id="hero" data-g="d" style="--heroc:#A9DFFF">
     <div>
       <div class="brand"><svg viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="13" fill="#FFC93C" stroke="#1B1464" stroke-width="2.5"/><path d="M17 5 8 17h5.5L12 25l10-13h-6z" fill="#1B1464"/></svg>Chispa<small class="by">by Toyosoft</small></div>
       <h1 id="h1">Reposta tu coche <em>más barato</em> y más cerca</h1>
@@ -359,10 +359,10 @@ const TCOL={n:'--none',0:'--violet',1:'--green',2:'--sun',3:'--orange',4:'--pink
 /* ---------- modos: eléctrico y carburantes ---------- */
 const FUELS=['Gasolina 95','Gasolina 98','Diésel','Diésel Premium','GLP'];
 const MODES={e:{g:'e'},g95:{g:'g',fi:0,short:'95'},g98:{g:'g',fi:1,short:'98'},da:{g:'d',fi:2,short:'Normal (A)'},dp:{g:'d',fi:3,short:'Premium'},glp:{g:'l',fi:4,short:'GLP'}};
-const GROUPS={e:{modes:['e'],color:'var(--teal)',h1:'Reposta tu coche <em>más barato</em> y más cerca'},
-  g:{modes:['g95','g98'],color:'#4BE08A',h1:'Reposta tu coche <em>más barato</em> y más cerca'},
-  d:{modes:['da','dp'],color:'#FF9A3C',h1:'Reposta tu coche <em>más barato</em> y más cerca'},
-  l:{modes:['glp'],color:'#9FE3FF',h1:'Reposta tu coche <em>más barato</em> y más cerca'}};
+const GROUPS={e:{modes:['e'],color:'#A9DFFF',h1:'Reposta tu coche <em>más barato</em> y más cerca'},
+  g:{modes:['g95','g98'],color:'#A9DFFF',h1:'Reposta tu coche <em>más barato</em> y más cerca'},
+  d:{modes:['da','dp'],color:'#A9DFFF',h1:'Reposta tu coche <em>más barato</em> y más cerca'},
+  l:{modes:['glp'],color:'#A9DFFF',h1:'Reposta tu coche <em>más barato</em> y más cerca'}};
 let M={},isE=true;
 const fp=p=>(p/M.div).toFixed(M.dec).replace('.',',');
 const tierP=p=>p<0?'n':(isE&&p===0)?0:p<=M.th[0]?1:p<=M.th[1]?2:p<=M.th[2]?3:4;
