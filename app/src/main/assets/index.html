@@ -42,7 +42,7 @@ button,input{font:inherit;color:inherit}
 .mode b{font-family:var(--display);font-size:18px;font-weight:600;line-height:1.1}
 .mode small{font-size:12px;font-weight:600;opacity:.75}
 .mode:hover{transform:translateY(-2px)}
-.mode[aria-pressed="true"]{background:#FFC93C;box-shadow:4px 4px 0 #1B1464;transform:translate(-2px,-2px)}
+.mode[aria-pressed="true"]{background:#FF4F79;color:#fff;box-shadow:4px 4px 0 #1B1464;transform:translate(-2px,-2px)}
 .hero[data-g="e"] #artF,.hero[data-g="e"] #embF,.hero:not([data-g="e"]) #artE,.hero:not([data-g="e"]) #embE{display:none}
 .hero .chips .chip{background:#fff;color:#1B1464;border-color:#1B1464}
 .hero .chips .chip[aria-pressed="true"]{background:#1B1464;color:#fff;box-shadow:none}
@@ -156,7 +156,7 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
 .pop .card{cursor:default;box-shadow:5px 5px 0 var(--shadow)}
 .pop .x{position:absolute;right:8px;top:8px;cursor:pointer;border:2px solid var(--line);background:var(--surface);color:var(--ink);border-radius:50%;width:28px;height:28px;font-weight:700;line-height:1}
 .hint{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);background:var(--pink);color:#fff;border:2px solid var(--line);border-radius:999px;padding:6px 14px;font-weight:700;white-space:nowrap;max-width:calc(100% - 20px);overflow:hidden;text-overflow:ellipsis}
-.toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 18px);transform:translateX(-50%);z-index:50;background:var(--ink);color:var(--surface);border-radius:14px;padding:11px 16px;font-weight:600;max-width:min(92vw,520px);text-align:center}
+.toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 18px);transform:translateX(-50%);z-index:50;background:var(--ink);color:var(--surface);border-radius:14px;padding:11px 16px;font-weight:600;width:max-content;max-width:min(92vw,520px);text-align:center}
 dialog.sheet{border:var(--bw) solid var(--line);border-radius:22px;box-shadow:7px 7px 0 var(--shadow);background:var(--surface);color:var(--ink);padding:0;width:min(720px,calc(100vw - 24px));max-height:min(88vh,860px);overflow:auto}
 dialog.sheet::backdrop{background:rgba(20,14,70,.55)}
 .dhead{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:14px;padding:22px 18px 14px;background:var(--surface2);border-bottom:var(--bw) solid var(--line);align-items:start}
@@ -270,7 +270,7 @@ footer a{color:inherit;font-weight:700}
         <input id="q" type="search" placeholder="Pueblo o código postal" aria-label="Buscar pueblo, ciudad o código postal" aria-autocomplete="list">
         <div class="sugg" id="sugg" hidden></div>
       </div>
-      <button class="btn" type="button" id="gps"><svg aria-hidden="true"><use href="#gps"/></svg>Cerca de mí</button>
+      <button class="btn" type="button" id="gpsBtn"><svg aria-hidden="true"><use href="#gps"/></svg>Cerca de mí</button>
       <button class="btn pink" type="button" id="pickTop"><svg aria-hidden="true"><use href="#pin"/></svg>Marcar en el mapa</button>
     </form>
     <div class="here"><span><span style="white-space:nowrap">Buscando alrededor de</span><b id="hereName">Madrid</b></span><span class="chips" id="subs"></span></div>
@@ -635,7 +635,7 @@ function ubiFail(c,e){ubiBusy=false;let m=UBI_MSG[c]||UBI_MSG.sin_senal;
   else if(c==='permiso'&&IOS)m='Safari no tiene permiso de ubicación. En el iPhone: Ajustes → Privacidad y seguridad → Localización → Sitios web de Safari → «Al usar la app». Luego recarga la página.';
   toast(m+(e?' ['+e.code+(e.message?': '+e.message:'')+']':''))}
 window.__ubi=(la,lo,err)=>{err?ubiFail(err):ubiOk(la,lo)};
-$('#gps').onclick=()=>{if(ubiBusy)return;ubiBusy=true;toast('Buscando tu ubicación…');
+$('#gpsBtn').onclick=()=>{if(ubiBusy)return;ubiBusy=true;toast('Buscando tu ubicación…');
   setTimeout(()=>{if(ubiBusy)ubiFail('sin_senal')},40000);
   if(window.Android&&window.Android.ubicacion){try{window.Android.ubicacion();return}catch(e){}}
   if(!navigator.geolocation)return ubiFail('sin_senal');
