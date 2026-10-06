@@ -47,6 +47,8 @@ button,input{font:inherit;color:inherit}
 .hero .chips .chip{background:#fff;color:#1B1464;border-color:#1B1464}
 .hero .chips .chip[aria-pressed="true"]{background:#1B1464;color:#fff;box-shadow:none}
 .tag.h24{background:var(--green);color:var(--onpop)}
+.hero #avisoBtn{background:#fff;color:#1B1464;border-color:#1B1464}
+.hero #avisoBtn[aria-pressed="true"]{background:#1B1464;color:#fff;box-shadow:none}
 .tag b{font-variant-numeric:tabular-nums}
 .ctable tr.cur td{background:var(--sun);color:var(--onpop);font-weight:700}
 .ctable tr.na td{color:var(--muted)}
@@ -222,6 +224,7 @@ footer a{color:inherit;font-weight:700}
   <symbol id="gps" viewBox="0 0 24 24"><circle cx="12" cy="12" r="6" fill="none" stroke="currentColor" stroke-width="2.4"/><circle cx="12" cy="12" r="2" fill="currentColor"/><path d="M12 1v4M12 19v4M1 12h4M19 12h4" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></symbol>
   <symbol id="ilist" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/></symbol>
   <symbol id="imap" viewBox="0 0 24 24"><path d="m3 6 6-2 6 2 6-2v14l-6 2-6-2-6 2zM9 4v14M15 6v14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></symbol>
+  <symbol id="bell" viewBox="0 0 24 24"><path d="M6 17V11a6 6 0 0 1 12 0v6l2 2H4z" fill="none" stroke="currentColor" stroke-width="2.200" stroke-linejoin="round"/><path d="M10 21h4M12 3v2" stroke="currentColor" stroke-width="2.200" stroke-linecap="round"/></symbol>
   <symbol id="cam" viewBox="0 0 24 24"><path d="M3 8h4l2-3h6l2 3h4v11H3z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.4" fill="none" stroke="currentColor" stroke-width="2.2"/></symbol>
   <symbol id="c1" viewBox="0 0 16 16"><path d="M3 4h10a6 6 0 1 1-10 0z" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="5.5" cy="7" r="1" fill="currentColor"/><circle cx="10.5" cy="7" r="1" fill="currentColor"/><circle cx="8" cy="9.6" r="1" fill="currentColor"/><circle cx="5.2" cy="10.6" r=".9" fill="currentColor"/><circle cx="10.8" cy="10.6" r=".9" fill="currentColor"/></symbol>
   <symbol id="c2" viewBox="0 0 16 16"><path d="M4 2h8a4.4 4.4 0 1 1-8 0z" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="2.5" y="10.4" width="11" height="4.6" rx="2.3" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="5.6" cy="12.7" r="1.1" fill="currentColor"/><circle cx="10.4" cy="12.7" r="1.1" fill="currentColor"/><circle cx="8" cy="5" r="1" fill="currentColor"/></symbol>
@@ -274,7 +277,7 @@ footer a{color:inherit;font-weight:700}
       <button class="btn" type="button" id="gpsBtn"><svg aria-hidden="true"><use href="#gps"/></svg>Cerca de mí</button>
       <button class="btn pink" type="button" id="pickTop"><svg aria-hidden="true"><use href="#pin"/></svg>Marcar en el mapa</button>
     </form>
-    <div class="here"><span><span style="white-space:nowrap">Buscando alrededor de</span><b id="hereName">Madrid</b></span><span class="chips" id="subs"></span></div>
+    <div class="here"><span><span style="white-space:nowrap">Buscando alrededor de</span><b id="hereName">Madrid</b></span><span class="chips" id="subs"></span><button class="chip" type="button" id="avisoBtn" hidden aria-pressed="false"><svg aria-hidden="true"><use href="#bell"/></svg><span>Avisarme si baja</span></button></div>
   </header>
 
   <div class="main">
@@ -430,7 +433,7 @@ function apply(keepLimit){
   const far=1e9;
   res.sort(st.sort==='d'?(a,b)=>a.d-b.d:st.sort==='k'?(a,b)=>b.kw-a.kw||a.d-b.d:(a,b)=>(a.p<0?far:a.p)-(b.p<0?far:b.p)||a.d-b.d);
   if(st.sel&&!res.includes(st.sel)){st.sel=null;$('#pop').hidden=true}
-  renderStats();renderList();draw();
+  renderStats();renderList();draw();avisoUI();
 }
 const pTxt=p=>(isE&&p===0)?'Gratis':fp(p)+' €';
 function renderStats(){
@@ -643,6 +646,18 @@ $('#gpsBtn').onclick=()=>{if(ubiBusy)return;ubiBusy=true;toast('Buscando tu ubic
   const ok=p=>{if(ubiBusy)ubiOk(p.coords.latitude,p.coords.longitude)};
   const precisa=()=>navigator.geolocation.getCurrentPosition(ok,e=>{if(ubiBusy)ubiFail(e&&e.code===1?'permiso':'sin_senal',e)},{timeout:20000,maximumAge:120000,enableHighAccuracy:true});
   try{navigator.geolocation.getCurrentPosition(ok,e=>{if(!ubiBusy)return;if(e&&e.code===1)ubiFail('permiso',e);else precisa()},{timeout:8000,maximumAge:300000,enableHighAccuracy:false})}catch(e){ubiFail('sin_senal')}};
+
+/* ---------- aviso de bajada de precio (solo en la app Android) ---------- */
+const HAS_AVISO=!!(window.Android&&window.Android.avisoActivar);
+function avisoCfg(){try{const t=window.Android.avisoEstado();return t?JSON.parse(t):null}catch(e){return null}}
+const avisoMismo=c=>!!c&&c.modo===st.mode&&Math.abs(c.lat-st.lat)<1e-4&&Math.abs(c.lon-st.lon)<1e-4&&c.r===st.r;
+function avisoUI(){const b=$('#avisoBtn');if(!HAS_AVISO||isE||!DF){b.hidden=true;return}b.hidden=false;const c=avisoCfg(),on=avisoMismo(c);
+  b.setAttribute('aria-pressed',on);b.lastChild.textContent=on?'Aviso activado':c?'Mover el aviso aquí':'Avisarme si baja'}
+$('#avisoBtn').onclick=()=>{if(!HAS_AVISO)return;if(avisoMismo(avisoCfg())){window.Android.avisoQuitar();return}
+  let min=0;for(const s of S)if(s.d<=st.r&&s.p>0&&(!min||s.p<min))min=s.p;
+  if(!min)return toast('No hay gasolineras con '+M.fuel+' en esta zona. Amplía el radio.');
+  window.Android.avisoActivar(JSON.stringify({lat:st.lat,lon:st.lon,r:st.r,fi:MODES[st.mode].fi,modo:st.mode,comb:M.fuel,nombre:st.name,min,fecha:DF.date}))};
+window.__aviso=e=>{avisoUI();toast(e==='activo'?`Aviso activado: te avisaremos cuando baje el ${M.fuel} en ${st.name} (${st.r} km a la redonda).`:e==='quitado'?'Aviso quitado.':e==='sin_permiso'?'Chispa necesita permiso de notificaciones para avisarte. Dáselo en los ajustes del móvil.':'No se ha podido activar el aviso.')};
 
 /* ---------- controles ---------- */
 function pOut(){const lo=st.pmin>M.min,hi=st.pmax<M.max,u=' '+M.unit;$('#pOut').textContent=!lo&&!hi?'cualquiera':lo&&hi?'de '+fp(st.pmin)+' a '+fp(st.pmax)+u:lo?'desde '+fp(st.pmin)+u:'hasta '+fp(st.pmax)+u}

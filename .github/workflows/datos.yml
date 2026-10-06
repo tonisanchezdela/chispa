@@ -35,6 +35,7 @@ jobs:
           fecha=$(python3 datos/miteco.py estaciones.csv)
           python3 datos/gasolineras.py estaciones.csv "$fecha" fuel_nuevo.json
           mv fuel_nuevo.json _datos/fuel.json
+          python3 -c "import json;print(json.load(open('_datos/fuel.json',encoding='utf8'))['date'])" > _datos/fecha.txt
 
       - name: Cargadores (Open Charge Map)
         if: github.event.schedule == '40 4 1,15 * *' || inputs.cargadores

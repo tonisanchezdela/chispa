@@ -11,6 +11,7 @@ import android.os.CancellationSignal
 import android.os.Handler
 import android.os.Looper
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.webkit.GeolocationPermissions
 import android.webkit.JavascriptInterface
@@ -30,6 +31,7 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.webkit.WebViewAssetLoader
 import androidx.webkit.WebViewClientCompat
+import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
 
@@ -45,6 +47,40 @@ class MainActivity : AppCompatActivity() {
             geoRespuesta = null
             geoOrigen = null
         }
+
+    private var avisoPendiente: String? = null
+
+    private val pedirNotificaciones =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { ok ->
+            val cfg = avisoPendiente
+            avisoPendiente = null
+            if (ok && cfg != null) guardarAviso(cfg) else responderAviso("sin_permiso")
+        }
+
+    private fun responderAviso(estado: String) {
+        runOnUiThread { web.evaluateJavascript("window.__aviso&&window.__aviso(" + JSONObject.quote(estado) + ")", null) }
+    }
+
+    private fun guardarAviso(cfg: String) {
+        try {
+            val o = JSONObject(cfg)
+            getSharedPreferences("aviso", MODE_PRIVATE).edit()
+                .putString("cfg", o.toString())
+                .putInt("min", o.optInt("min", 0))
+                .putString("fecha", o.optString("fecha", ""))
+                .apply()
+            Avisos.programar(this)
+            Avisos.notificar(
+                this,
+                "Aviso activado",
+                "Te avisaremos cuando baje el " + o.optString("comb") + " en " + o.optString("nombre") + ".",
+                1
+            )
+            responderAviso("activo")
+        } catch (e: Exception) {
+            responderAviso("error")
+        }
+    }
 
     private val pedirUbicacionNativa =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { res ->
@@ -202,6 +238,38 @@ class MainActivity : AppCompatActivity() {
     }
 
     inner class Puente {
+
+        /** Configuración del aviso de bajada de precio guardada en el móvil (JSON), o cadena vacía si no hay. */
+        @JavascriptInterface
+        fun avisoEstado(): String = getSharedPreferences("aviso", MODE_PRIVATE).getString("cfg", "") ?: ""
+
+        @JavascriptInterface
+        fun avisoActivar(cfg: String) {
+            runOnUiThread {
+                val falta = Build.VERSION.SDK_INT >= 33 &&
+                    ContextCompat.checkSelfPermission(this@MainActivity, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED
+                if (falta) {
+                    avisoPendiente = cfg
+                    try {
+                        pedirNotificaciones.launch(Manifest.permission.POST_NOTIFICATIONS)
+                    } catch (e: Exception) {
+                        avisoPendiente = null
+                        responderAviso("sin_permiso")
+                    }
+                } else {
+                    guardarAviso(cfg)
+                }
+            }
+        }
+
+        @JavascriptInterface
+        fun avisoQuitar() {
+            runOnUiThread {
+                getSharedPreferences("aviso", MODE_PRIVATE).edit().clear().apply()
+                Avisos.cancelar(this@MainActivity)
+                responderAviso("quitado")
+            }
+        }
 
         /** Ubicación del móvil, pedida directamente a Android. Responde llamando a window.__ubi(lat, lon, error). */
         @JavascriptInterface
