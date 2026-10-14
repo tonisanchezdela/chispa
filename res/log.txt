@@ -1,0 +1,25 @@
+LOC Valencia
+GL0 true
+GL0b true
+BEST {"b":[-0.38207530975341797,39.417563067475356],"bn":80,"tot":843}
+GL1 true
+GL1b true
+MARK intro 9.46
+MARK s1 14.47
+  used 6.93 of 7.4
+MARK s2 21.87
+  used 8.07 of 7.2
+MARK s3 29.94
+t 32.8
+GL true 32.8
+t 42.5
+  used 19.60 of 11
+MARK s4 49.54
+  used 17.81 of 15.5
+MARK s5 67.35
+  used 7.99 of 6.8
+MARK s6 75.34
+  used 7.43 of 7.6
+MARK fade 82.94
+MARK end 85.15
+VIDEO /home/runner/work/chispa/chispa/rec/out/page@4448fb262ac56f38f6548abc701ea7a4.webm
