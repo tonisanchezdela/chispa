@@ -2,6 +2,8 @@ name: Grabar vídeo
 on:
   push:
     branches: [video]
+permissions:
+  contents: write
 jobs:
   rec:
     runs-on: ubuntu-latest
@@ -23,11 +25,9 @@ jobs:
           python3 -m http.server 8770 >/dev/null 2>&1 &
           sleep 2
           node rec.js | tee log.txt
-      - uses: actions/upload-artifact@v4
+      - name: Guardar resultado en la rama
         if: always()
-        with:
-          name: video
-          path: |
-            rec/out
-            rec/shots
-            rec/log.txt
+        run: |
+          mkdir -p res && cp -r rec/out rec/shots rec/log.txt res/ || true
+          git config user.name github-actions && git config user.email github-actions@users.noreply.github.com
+          git add res && git commit -m "Resultado de la grabación [skip ci]" && git push
