@@ -68,6 +68,7 @@ li:nth-child(2) i{background:#FFC93C}li:nth-child(3) i{background:#FF4F79}li:nth
 </div>
 <div class="black" id="black"></div>
 <script>
+addEventListener('scroll',()=>{if(scrollX||scrollY)scrollTo(0,0)});document.documentElement.style.overflow='hidden';
 window.cap=(step,ttl,lines)=>{const c=document.getElementById('cap');c.classList.add('out');
   setTimeout(()=>{const se=document.getElementById('step');se.textContent=step;se.classList.toggle('nuevo',/^Nuevo/.test(step));document.getElementById('ttl').innerHTML=ttl;
     document.getElementById('lines').innerHTML=lines.map(l=>'<li><i></i><span>'+l+'</span></li>').join('');c.classList.remove('out');

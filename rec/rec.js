@@ -46,23 +46,23 @@ await padTo(7.2);
 // 3 mapa
 mark('s3');await cap('Nuevo · Mapa','Un <em>mapa real</em>',['Con todas las calles','Marca y precio en cada punto','Verde barato · rosa caro']);
 await fr().evaluate(()=>scrollTo({top:0,behavior:'smooth'}));await w(500);await scrollTo('#tabs',14);await tap('#tabs [data-v=map]',{after:300});
-console.log('t',now().toFixed(1));console.log('GL',await glWait(),now().toFixed(1));await fr().evaluate(()=>GL.map.jumpTo({center:[-0.3763,39.4699],zoom:10.3}));await w(1300);await shot('s3a');
-await fr().evaluate(b=>{GL.map.flyTo({center:b,zoom:13.7,duration:3000})},best.b);await w(3600);console.log('t',now().toFixed(1));await shot('s3b');
-await fr().evaluate(()=>GL.map.panBy([-110,110],{duration:1500}));await w(1800);await shot('s3c');
+console.log('t',now().toFixed(1));console.log('GL',await glWait(),now().toFixed(1));await fr().evaluate(()=>GL.map.jumpTo({center:[-0.3763,39.4699],zoom:10.3}));await w(1300);
+await fr().evaluate(b=>{GL.map.flyTo({center:b,zoom:13.7,duration:3000})},best.b);await w(3600);console.log('t',now().toFixed(1));
+await fr().evaluate(()=>GL.map.panBy([-110,110],{duration:1500}));await w(1800);
 await padTo(11);
 // 4 ruta
 mark('s4');await cap('Nuevo · Rutas','Planifica tu <em>viaje</em>',['Destino y desvío máximo','Cada cuántos km repostar','Las paradas más baratas de la ruta']);
 await fr().evaluate(()=>scrollTo({top:0,behavior:'smooth'}));await w(500);
 await tap('#routeBtn',{after:900});await tap('#rTo',{after:200});await f.locator('#rTo').pressSequentially('Madri',{delay:110});await w(600);await tap('#rToS button',{after:600});
-await hide();await slide('#rDev',3,800);await slide('#rStep',150,1100);
+await hide();await slide('#rDev',3,800);await slide('#rStep',125,1100);
 await tap('#rGo',{after:300});
 await f.locator('#rRes .stops li').first().waitFor({timeout:25000}).catch(e=>console.log('NO ROUTE',e.message.split('\n')[0]));
-await w(600);await scrollTo('#rRes',72);await w(2000);await shot('s4a');
+await w(600);await scrollTo('#rRes',72);await w(2000);
 await scrollTo('#mapbox',10);await w(2300);await shot('s4b');
 await padTo(15.5);
 // 5 ficha
 mark('s5');await cap('3 · Ficha','Todo, en <em>un toque</em>',['Todos los precios y el horario','Ve con Google Maps']);
-await scrollTo('#rRes .stops',60);await tap('#rRes .stops li[data-k]',{after:1200});await hide();await shot('s5a');
+await scrollTo('#rRes .stops',60);await tap('#rRes .stops li[data-k]',{after:1200});await hide();
 await fr().evaluate(()=>document.querySelector('#dlg').scrollTo({top:300,behavior:'smooth'}));await w(1200);
 await fr().evaluate(()=>document.querySelector('#dlg').scrollTo({top:0,behavior:'smooth'}));await w(700);await tap('#dlg .go',{fake:true,after:700});await tap('#dlg [data-x]',{after:400});
 await padTo(6.8);
