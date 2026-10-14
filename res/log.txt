@@ -1,0 +1,17 @@
+MARK intro 2.37
+MARK s1 7.38
+  used 7.41 of 7.4
+MARK s2 14.79
+  used 7.88 of 7.2
+MARK s3 22.67
+GL true
+  used 22.82 of 11
+MARK s4 45.48
+  used 19.80 of 15.5
+MARK s5 65.29
+  used 9.45 of 6.8
+MARK s6 74.74
+  used 7.44 of 7.6
+MARK fade 82.34
+MARK end 84.55
+VIDEO /home/runner/work/chispa/chispa/rec/out/page@55579d6704ae56d7cb4da357200c6d52.webm
