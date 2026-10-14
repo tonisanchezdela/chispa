@@ -1,0 +1,33 @@
+name: Grabar vídeo
+on:
+  push:
+    branches: [video]
+jobs:
+  rec:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Preparar
+        working-directory: rec
+        run: |
+          npm i playwright@1.63.0
+          npx playwright install --with-deps chromium
+          mkdir -p out shots
+      - name: Grabar
+        working-directory: rec
+        run: |
+          python3 -m http.server 8770 >/dev/null 2>&1 &
+          sleep 2
+          node rec.js | tee log.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: video
+          path: |
+            rec/out
+            rec/shots
+            rec/log.txt
