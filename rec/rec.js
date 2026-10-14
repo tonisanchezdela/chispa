@@ -15,12 +15,15 @@ await f.locator('#list .card').first().waitFor({timeout:60000});
 await fr().evaluate(()=>{try{localStorage.removeItem('chispa')}catch(e){}});
 // precalentar (oculto tras la intro): Valencia, mapa cargado y punto con más gasolineras
 const glWait=()=>fr().evaluate(()=>new Promise(r=>{const t0=Date.now();(function k(){const m=window.GL&&GL.map;if(m&&m.isStyleLoaded()&&m.areTilesLoaded())return r(true);if(Date.now()-t0>25000)return r(false);setTimeout(k,250)})()}));
-await f.locator('#q').fill('Valenc');await w(400);await f.locator('#sugg button').first().click();await w(800);
-await f.locator('#tabs [data-v=map]').click();console.log('GL0',await glWait());await w(800);
+await fr().evaluate(()=>{const q=document.querySelector('#q');q.focus();q.value='Valenc';q.dispatchEvent(new Event('input',{bubbles:true}))});await w(600);
+await fr().evaluate(()=>{const b=document.querySelector('#sugg button');b.dispatchEvent(new PointerEvent('pointerdown',{bubbles:true}));b.dispatchEvent(new MouseEvent('mousedown',{bubbles:true}));b.click()});await w(1000);
+console.log('LOC',await fr().evaluate(()=>document.querySelector('#hereName').textContent));
+await fr().evaluate(()=>document.querySelector('#tabs [data-v=map]').click());console.log('GL0',await glWait());
+await fr().evaluate(()=>GL.map.jumpTo({center:[-0.3763,39.4699],zoom:10.3}));console.log('GL0b',await glWait());await w(500);
 const best=await fr().evaluate(()=>{const fs=GL.map.querySourceFeatures('pts');const c=fs.map(f=>f.geometry.coordinates);let b=null,bn=-1;for(const a of c){let n=0;for(const q of c)if(Math.abs(q[0]-a[0])<.013&&Math.abs(q[1]-a[1])<.009)n++;if(n>bn){bn=n;b=a}}return {b,bn,tot:c.length}});console.log('BEST',JSON.stringify(best));
 await fr().evaluate(b=>{GL.map.jumpTo({center:b,zoom:13.7})},best.b);console.log('GL1',await glWait());await w(800);
 await fr().evaluate(b=>{GL.map.jumpTo({center:[b[0]-0.012,b[1]+0.012],zoom:13.7})},best.b);console.log('GL1b',await glWait());
-await f.locator('#tabs [data-v=list]').click();await f.locator('#q').fill('');await fr().evaluate(()=>scrollTo(0,0));await w(1200);
+await fr().evaluate(()=>{document.querySelector('#tabs [data-v=list]').click();const q=document.querySelector('#q');q.value='';q.blur();const sg=document.querySelector('#sugg');if(sg)sg.hidden=true});await fr().evaluate(()=>scrollTo(0,0));await w(1200);
 mark('intro');await w(4100);
 await p.evaluate(()=>document.getElementById('intro').classList.add('go'));await w(900);
 const cap=(s,t,l)=>p.evaluate(([s,t,l])=>cap(s,t,l),[s,t,l]);
@@ -43,8 +46,8 @@ await padTo(7.2);
 // 3 mapa
 mark('s3');await cap('Nuevo · Mapa','Un <em>mapa real</em>',['Con todas las calles','Marca y precio en cada punto','Verde barato · rosa caro']);
 await fr().evaluate(()=>scrollTo({top:0,behavior:'smooth'}));await w(500);await scrollTo('#tabs',14);await tap('#tabs [data-v=map]',{after:300});
-console.log('GL',await glWait());await fr().evaluate(()=>GL.map.jumpTo({center:[-0.3763,39.4699],zoom:10.3}));await w(1300);await shot('s3a');
-await fr().evaluate(b=>{GL.map.flyTo({center:b,zoom:13.7,duration:3000})},best.b);await w(3600);await shot('s3b');
+console.log('t',now().toFixed(1));console.log('GL',await glWait(),now().toFixed(1));await fr().evaluate(()=>GL.map.jumpTo({center:[-0.3763,39.4699],zoom:10.3}));await w(1300);await shot('s3a');
+await fr().evaluate(b=>{GL.map.flyTo({center:b,zoom:13.7,duration:3000})},best.b);await w(3600);console.log('t',now().toFixed(1));await shot('s3b');
 await fr().evaluate(()=>GL.map.panBy([-110,110],{duration:1500}));await w(1800);await shot('s3c');
 await padTo(11);
 // 4 ruta
