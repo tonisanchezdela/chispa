@@ -543,7 +543,7 @@ function paint(){
   for(const l of lab){cx.lineWidth=4;cx.strokeStyle=col['--surface'];cx.lineJoin='round';cx.textAlign='center';cx.strokeText(l[3],l[0],l[1]-13);cx.fillStyle=col['--ink'];cx.fillText(l[3],l[0],l[1]-13)}
   const inview=vis.filter(s=>inR(s)&&s.p>=0);
   if(inview.length&&inview.length<=28){cx.font='700 12px Figtree,system-ui,sans-serif';
-    for(const s of inview){const tp=tierP(s.p),t=pTxt(s.p),w=cx.measureText(t).width+12;
+    for(const s of inview){const tp=tierP(s.p),t=(brandShort(s)+' '+pTxt(s.p)).trim(),w=cx.measureText(t).width+12;
       cx.fillStyle=col[TCOL[tp]];cx.strokeStyle=col['--line'];cx.lineWidth=1.8;cx.beginPath();cx.roundRect(s.X-w/2,s.Y-31,w,19,9);cx.fill();cx.stroke();
       cx.fillStyle=(tp===0||tp===4)?'#fff':col['--onpop'];cx.textAlign='center';cx.fillText(t,s.X,s.Y-21)}}
   if(st.sel){const X=sx(st.sel.lo),Y=sy(st.sel.y);cx.beginPath();cx.arc(X,Y,14,0,7);cx.lineWidth=4;cx.strokeStyle=col['--pink'];cx.stroke();cx.beginPath();cx.arc(X,Y,8,0,7);cx.fillStyle=col[TCOL[tierP(st.sel.p)]];cx.fill();cx.lineWidth=2;cx.strokeStyle=col['--line'];cx.stroke()}
@@ -575,6 +575,7 @@ function select(s,center){st.sel=s;const p=$('#pop');
   document.querySelectorAll('#list .card').forEach(c=>c.classList.toggle('on',res[+c.dataset.i]===s));draw()}
 $('#pop').addEventListener('click',e=>{if(e.target.closest('.x'))select(null);else if(!e.target.closest('a')&&st.sel)openDetail(st.sel)});
 
+const brandShort=s=>{let b=isE?(OPS[s.op]||''):(s.t||OPS[s.op]||'');if(isE&&/^(Local \/ negocio|Sin identificar|Otras redes)$/.test(b))b=s.t||'';b=b.split('|')[0].trim();return b.length>13?b.slice(0,12).trim()+'…':b};
 /* ---------- mapa real (MapLibre + OpenFreeMap). Si no carga, se usa el esquema ---------- */
 const GL={on:false,map:null};
 const EMPTY={type:'FeatureCollection',features:[]};
@@ -591,14 +592,19 @@ function glInit(){
   map.on('error',()=>{if(!map.isStyleLoaded())fail()});
   map.on('load',()=>{if(ok)return;ok=true;clearTimeout(to);
     for(const id of['radius','route','pts','sel','stops','center'])map.addSource(id,{type:'geojson',data:EMPTY});
+    for(const k in TCOL){const c=document.createElement('canvas');c.width=48;c.height=32;const g=c.getContext('2d');g.fillStyle=col[TCOL[k]]||'#C9CDE6';g.strokeStyle='#1B1464';g.lineWidth=3;g.beginPath();g.roundRect(1.500,1.500,45,29,11);g.fill();g.stroke();
+      map.addImage('pill-'+k,g.getImageData(0,0,48,32),{pixelRatio:2,stretchX:[[16,32]],stretchY:[[13,19]],content:[9,6,39,26]})}
     map.addLayer({id:'radius-fill',type:'fill',source:'radius',paint:{'fill-color':'#7B5CFF','fill-opacity':.08}});
     map.addLayer({id:'radius-line',type:'line',source:'radius',paint:{'line-color':'#1B1464','line-width':2,'line-dasharray':[2,2]}});
     map.addLayer({id:'route-casing',type:'line',source:'route',layout:{'line-join':'round','line-cap':'round'},paint:{'line-color':'#1B1464','line-width':9}});
     map.addLayer({id:'route-line',type:'line',source:'route',layout:{'line-join':'round','line-cap':'round'},paint:{'line-color':'#12D1B3','line-width':5}});
     map.addLayer({id:'pts',type:'circle',source:'pts',paint:{'circle-color':['get','c'],'circle-opacity':['get','o'],'circle-stroke-opacity':['get','o'],'circle-stroke-color':'#1B1464',
       'circle-radius':['interpolate',['linear'],['zoom'],5,2.500,9,4.500,12,7,15,10],'circle-stroke-width':['interpolate',['linear'],['zoom'],5,.4,10,1.500]}});
-    map.addLayer({id:'pts-lbl',type:'symbol',source:'pts',minzoom:12.500,filter:['all',['==',['get','o'],1],['!=',['get','l'],'']],
-      layout:{'text-field':['get','l'],'text-font':['Noto Sans Bold'],'text-size':12,'text-offset':[0,-1.600]},paint:{'text-color':'#1B1464','text-halo-color':'#ffffff','text-halo-width':2}});
+    map.addLayer({id:'pts-lbl',type:'symbol',source:'pts',minzoom:13,filter:['==',['get','o'],1],
+      layout:{'icon-image':['concat','pill-',['get','t']],'icon-text-fit':'both','icon-text-fit-padding':[3,7,3,7],
+        'text-field':['format',['upcase',['get','b']],{'font-scale':.78},'\n',{},['get','l'],{'font-scale':1.08}],
+        'text-font':['Noto Sans Bold'],'text-size':12,'text-line-height':1.05,'text-anchor':'bottom','text-offset':[0,-1.15],'text-max-width':14,'text-padding':2,'symbol-sort-key':['get','sk']},
+      paint:{'text-color':['get','tc']}});
     map.addLayer({id:'sel',type:'circle',source:'sel',paint:{'circle-radius':15,'circle-color':'rgba(0,0,0,0)','circle-stroke-color':'#FF4F79','circle-stroke-width':4}});
     map.addLayer({id:'stops',type:'circle',source:'stops',paint:{'circle-radius':['case',['==',['get','n'],''],8,13],'circle-color':['case',['==',['get','n'],''],'#ffffff','#FF4F79'],'circle-stroke-color':'#1B1464','circle-stroke-width':2.500}});
     map.addLayer({id:'stops-n',type:'symbol',source:'stops',layout:{'text-field':['get','n'],'text-font':['Noto Sans Bold'],'text-size':13,'text-allow-overlap':true,'text-ignore-placement':true},paint:{'text-color':'#ffffff'}});
@@ -614,7 +620,7 @@ function glInit(){
 }
 GL.update=()=>{const m=GL.map;if(!GL.on||!m)return;
   const tc={};for(const k in TCOL)tc[k]=col[TCOL[k]]||'#C9CDE6';
-  m.getSource('pts').setData(fc(shown.map((s,i)=>ptF(s.lo,s.la,{i,c:tc[tierP(s.p)],o:inR(s)?1:.5,l:s.p>=0?pTxt(s.p):''}))));
+  m.getSource('pts').setData(fc(shown.map((s,i)=>ptF(s.lo,s.la,{i,c:tc[tierP(s.p)],o:inR(s)?1:.5,l:s.p>=0?pTxt(s.p):'',b:brandShort(s),t:String(tierP(s.p)),tc:(tierP(s.p)===0||tierP(s.p)===4)?'#ffffff':'#1B1464',sk:s.p<0?1e6:s.p}))));
   m.getSource('sel').setData(st.sel?fc([ptF(st.sel.lo,st.sel.la)]):EMPTY);
   m.getSource('radius').setData(RT.on?EMPTY:fc([circleF(st.lat,st.lon,st.r)]));
   m.getSource('center').setData(RT.on?EMPTY:fc([ptF(st.lon,st.lat)]));
