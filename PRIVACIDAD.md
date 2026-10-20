@@ -1,12 +1,14 @@
 # Política de privacidad de Chispa
 
-Última actualización: 13 de octubre de 2026
+Última actualización: 21 de octubre de 2026
 
 Chispa es una app gratuita para encontrar cargadores de coche eléctrico y gasolineras en España al mejor precio. No tiene anuncios, no pide registro, no vende datos y no usa herramientas de analítica ni de seguimiento.
 
 ## Qué datos usa la app
 
-**Ubicación.** Si pulsas «Cerca de mí», la app pide permiso para conocer tu ubicación. Se usa solo en tu móvil, en ese momento, para calcular la distancia a cada cargador o gasolinera. Tu ubicación no se envía a ningún servidor ni se guarda en ningún sitio fuera del teléfono. Puedes usar la app sin dar este permiso, escribiendo un pueblo o código postal o marcando un punto en el mapa.
+**Ubicación.** Si pulsas «Cerca de mí», la app pide permiso para conocer tu ubicación. Se usa solo en tu móvil, en ese momento, para calcular la distancia a cada cargador o gasolinera. Tu ubicación no se guarda en ningún sitio fuera del teléfono; solo sale del móvil, sin asociarse a ti, para calcular distancias por carretera con el servicio de rutas (ver más abajo). Puedes usar la app sin dar este permiso, escribiendo un pueblo o código postal o marcando un punto en el mapa.
+
+**Tu vehículo (opcional).** Si configuras tu vehículo (tipo, marca, modelo, motor, año, consumo y depósito), esos datos se guardan únicamente en tu teléfono y se usan para calcular lo que te cuesta repostar. No se envían a ningún sitio.
 
 **Preferencias.** El último punto de búsqueda, el radio y el tipo de combustible elegidos se guardan únicamente en tu teléfono para que la app se abra como la dejaste.
 
@@ -19,7 +21,7 @@ La app no recoge nombre, correo, teléfono, contactos ni ningún identificador t
 - Descarga los datos de cargadores y precios desde GitHub (github.com). Es una descarga de ficheros públicos, sin enviar ningún dato tuyo.
 - Carga las tipografías desde Google Fonts.
 - Muestra el mapa con teselas de OpenFreeMap (openfreemap.org), que recibe qué zona del mapa estás viendo.
-- Si usas «Planificar ruta», envía las coordenadas de salida y de destino al servicio público de rutas OSRM (routing.openstreetmap.de, de la asociación FOSSGIS, o router.project-osrm.org) para calcular el recorrido. No se envía nada más, ni se asocia a ninguna cuenta.
+- Si usas «Planificar ruta», o abres la ficha de una gasolinera o cargador teniendo tu vehículo configurado, envía las coordenadas de salida y de destino al servicio público de rutas OSRM (routing.openstreetmap.de, de la asociación FOSSGIS, o router.project-osrm.org) para calcular el recorrido o la distancia por carretera. No se envía nada más, ni se asocia a ninguna cuenta.
 - Si abres las fotos de un cargador, se cargan desde el alojamiento de Open Charge Map.
 - Si pulsas «Ir con Google Maps», «Street View» o el botón de la app de un operador, se abre esa app o esa web, que tienen sus propias políticas de privacidad.
 

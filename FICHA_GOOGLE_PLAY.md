@@ -101,11 +101,11 @@ https://github.com/tonisanchezdela/chispa/blob/main/PRIVACIDAD.md
 
 | Pregunta | Respuesta |
 |---|---|
-| ¿Recopila o comparte datos de usuario? | **Sí** (solo la ubicación de salida y destino de las rutas) |
+| ¿Recopila o comparte datos de usuario? | **Sí** (solo la ubicación de salida y destino de las rutas y de la distancia por carretera) |
 
 Tipo de dato: **Ubicación aproximada** y **Ubicación precisa** → *Compartido* con el servicio de rutas, *no recopilado de forma permanente* (se procesa al momento), *opcional*, finalidad **Funcionalidad de la app**. Se cifra en tránsito. No se puede pedir su eliminación porque no se guarda.
 
-La ubicación de «Cerca de mí» se usa solo dentro del teléfono. Lo único que sale del móvil son las coordenadas de salida y destino al calcular una ruta.
+La ubicación de «Cerca de mí» se usa solo dentro del teléfono. Lo único que sale del móvil son las coordenadas de salida y destino al calcular una ruta o la distancia por carretera a una gasolinera. Los datos del vehículo se quedan en el teléfono.
 
 **Permisos:** Internet, ubicación (aproximada y precisa) solo mientras se usa la app, y notificaciones (para el aviso de bajada de precio, opcional). Si Play Console pregunta por el uso de la ubicación: «Mostrar las gasolineras y cargadores más cercanos al usuario cuando pulsa "Cerca de mí"». No usa ubicación en segundo plano.
 
