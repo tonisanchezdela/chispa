@@ -1,0 +1,6 @@
+CONSOLE Expected value to be of type number, but found null instead.
+CONSOLE Expected value to be of type number, but found null instead.
+CONSOLE Expected value to be of type number, but found null instead.
+GL true
+hasImg true [ 0, 2.6999999999999997 ]
+trip 15 km · 0,7 L por carretera
