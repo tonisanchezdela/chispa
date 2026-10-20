@@ -237,6 +237,41 @@ footer a{color:inherit;font-weight:700}
 .art .bob{animation:bob 3.2s ease-in-out infinite}
 @keyframes zap{0%,100%{opacity:1}50%{opacity:.35}}
 .art .zap{animation:zap 1.3s steps(2) infinite}
+
+.vehc{background:#fff;color:#1B1464;border-color:#1B1464;padding:3px 12px 3px 6px;max-width:100%}
+.vehc>span:last-child{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.vmini{display:inline-flex;width:38px;height:26px;flex:none}.vmini svg,.vic svg{width:100%;height:100%;display:block}
+.vic{width:84px;flex:none}
+.vtypes{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+@media (max-width:600px){.vtypes{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.vt{cursor:pointer;border:var(--bw) solid var(--line);border-radius:16px;background:var(--surface2);color:var(--ink);padding:8px 6px 7px;display:flex;flex-direction:column;align-items:center;gap:1px;font-family:var(--display);font-weight:600;font-size:14px;line-height:1.15;text-align:center;box-shadow:3px 3px 0 var(--shadow)}
+.vt svg{width:100%;max-width:90px;height:auto}
+.vt small{font-family:var(--body);font-size:11px;color:var(--muted);font-weight:700}
+.vt[aria-pressed="true"]{background:var(--sun);color:var(--onpop)}.vt[aria-pressed="true"] small{color:var(--onpop)}
+.vsel,.vnums{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.vnums{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:560px){.vnums{grid-template-columns:repeat(2,minmax(0,1fr))}.vnums label:first-child{grid-column:1/-1}}
+.vsel label,.vnums label{display:flex;flex-direction:column;gap:4px;font-weight:700;font-size:13px;min-width:0}
+.vnums label small,.vnums label span small{font-weight:600;color:var(--muted)}
+.vsel select,.vnums select,.vnums input{height:44px;width:100%;border:var(--bw) solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink);font:600 15px var(--body);padding:0 10px;min-width:0}
+.vnums+.where{margin-top:8px;font-size:13px}
+.btn.ghost{background:var(--surface);color:var(--ink);border-color:var(--line);box-shadow:3px 3px 0 var(--shadow)}
+.vbox{border:var(--bw) solid var(--line);border-radius:18px;background:var(--surface2);padding:14px;box-shadow:4px 4px 0 var(--shadow);display:flex;flex-direction:column;gap:12px}
+.vtop{display:flex;gap:12px;align-items:center}.vtop .vic{width:76px}.vtop h3{margin:0 0 2px;font-size:17px}.vtop .where{margin:0;font-size:13px}
+.vgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.vk{border:2px solid var(--line);border-radius:14px;padding:8px 10px;background:var(--surface);min-width:0}
+.vk span{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.vk b{display:block;font-family:var(--display);font-size:22px;font-variant-numeric:tabular-nums;line-height:1.2}
+.vk small{display:block;font-size:12px;font-weight:600;color:var(--muted)}
+.vk.tot{background:var(--sun);color:var(--onpop);border-color:var(--onpop)}.vk.tot span,.vk.tot small{color:var(--onpop)}
+@media (max-width:480px){.vgrid{grid-template-columns:1fr 1fr}.vk.tot{grid-column:1/-1}}
+.vcmp{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.vcmp li{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-weight:600;font-size:13.5px;padding-bottom:6px;border-bottom:2px dashed var(--none)}
+.vcmp li:last-child{border-bottom:0;padding-bottom:0}.vcmp b{white-space:nowrap;font-variant-numeric:tabular-nums}
+.vcmp b.up{color:#0B8A4F}.vcmp b.down{color:#D61F57}
+:root[data-theme="dark"] .vcmp b.up{color:var(--green)}:root[data-theme="dark"] .vcmp b.down{color:#FF8FAB}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .vcmp b.up{color:var(--green)}:root:not([data-theme="light"]) .vcmp b.down{color:#FF8FAB}}
+.vverd{margin:0;border:2px solid var(--onpop);border-radius:12px;padding:9px 12px;font-weight:700;background:var(--green);color:var(--onpop)}.vverd.bad{background:var(--pink);color:#fff}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -301,7 +336,7 @@ footer a{color:inherit;font-weight:700}
       <button class="btn pink" type="button" id="pickTop"><svg aria-hidden="true"><use href="#pin"/></svg>Marcar en el mapa</button>
       <button class="btn" type="button" id="routeBtn"><svg aria-hidden="true"><use href="#route"/></svg>Planificar ruta</button>
     </form>
-    <div class="here"><span><span style="white-space:nowrap" id="hereLab">Buscando alrededor de</span><b id="hereName">Madrid</b></span><span class="chips" id="subs"></span><button class="chip" type="button" id="avisoBtn" hidden aria-pressed="false"><svg aria-hidden="true"><use href="#bell"/></svg><span>Avisarme si baja</span></button></div>
+    <div class="here"><span><span style="white-space:nowrap" id="hereLab">Buscando alrededor de</span><b id="hereName">Madrid</b></span><span class="chips" id="subs"></span><button class="chip" type="button" id="avisoBtn" hidden aria-pressed="false"><svg aria-hidden="true"><use href="#bell"/></svg><span>Avisarme si baja</span></button><button class="chip vehc" type="button" id="vehBtn"></button></div>
   </header>
 
   <section class="routebox stick" id="routebox" hidden aria-label="Planificar ruta">
@@ -386,6 +421,7 @@ footer a{color:inherit;font-weight:700}
   <footer id="foot">Cargadores: <a href="https://openchargemap.org" target="_blank" rel="noopener">Open Charge Map</a> y sus colaboradores, licencia CC BY 4.0. Precios de carburantes: Ministerio para la Transición Ecológica y el Reto Demográfico (Geoportal Gasolineras). Municipios: GeoNames (CC BY 4.0). Contorno: Natural Earth.<span id="dates"></span> Los precios pueden haber cambiado: confírmalos en el surtidor o en la app del operador. Mapa: OpenFreeMap, con datos de los colaboradores de OpenStreetMap (sin conexión se muestra un esquema). Rutas calculadas con OSRM sobre OpenStreetMap. Chispa es independiente: no está afiliada a ningún operador ni marca, y las marcas citadas pertenecen a sus dueños.</footer>
 </div>
 <dialog class="sheet" id="dlg" aria-label="Ficha completa"></dialog>
+<dialog class="sheet" id="vdlg" aria-label="Tu vehículo"></dialog>
 <div class="toast" id="toast" hidden role="status"></div>
 
 <script>
@@ -440,7 +476,7 @@ function setMode(mode,first){
   $('#gSp').hidden=$('#gCn').hidden=$('#nopL').hidden=!isE;$('#h24L').hidden=isE;
   document.querySelector('#sortChips [data-s="k"]').hidden=!isE;
   document.querySelectorAll('#sortChips .chip').forEach(c=>c.setAttribute('aria-pressed',c.dataset.s===st.sort));
-  $('#qLab').textContent='Quiero '+M.verb;$('#kOut').textContent=st.kwh+' '+M.q;$('#kwh').setAttribute('aria-label','Cantidad a '+M.verb+' en '+M.q);
+  vehKwh();$('#qLab').textContent='Quiero '+M.verb;$('#kOut').textContent=st.kwh+' '+M.q;$('#kwh').setAttribute('aria-label','Cantidad a '+M.verb+' en '+M.q);
   $('#opTitle').textContent=isE?'Marca':'Marca de gasolinera';
   const dot=(c,t)=>`<span><i style="background:var(${c})"></i>${t}</span>`;
   $('#legend').innerHTML=isE?dot('--violet','Gratis')+dot('--green','≤0,30')+dot('--sun','≤0,45')+dot('--orange','≤0,60')+dot('--pink','&gt;0,60')+dot('--none','Sin precio')
@@ -481,7 +517,7 @@ const pTxt=p=>(isE&&p===0)?'Gratis':fp(p)+' €';
 function renderStats(){
   const pr=res.filter(s=>s.p>=0),paid=pr.filter(s=>s.p>0);
   const cheap=pr.slice().sort((a,b)=>a.p-b.p||a.d-b.d)[0],near=res.slice().sort((a,b)=>a.d-b.d)[0];
-  const avg=paid.length?paid.reduce((a,s)=>a+s.p,0)/paid.length:null;
+  const avg=paid.length?paid.reduce((a,s)=>a+s.p,0)/paid.length:null;AVGP=avg;
   $('#stats').innerHTML=
    `<div class="stat stick"><span>${M.many}</span><b>${res.length}</b><small>${RT.on?'en la ruta':'en '+st.r+' km'}</small></div>`+
    `<div class="stat stick"><span>${isE?'El más barato':'La más barata'}</span><b>${cheap?pTxt(cheap.p):'—'}</b><small>${cheap?esc(OPS[cheap.op])+' · '+(RT.on?'km '+Math.round(cheap.rk):km(cheap.d)):'sin precios aquí'}</small></div>`+
@@ -490,7 +526,9 @@ function renderStats(){
 }
 const km=d=>d<1?Math.round(d*1000/10)*10+' m':d.toFixed(d<10?1:0).replace('.',',')+' km';
 const badge=s=>s.p<0?'<b>?</b><span>sin precio</span>':(isE&&s.p===0)?'<b>GRATIS</b><span>0 €/kWh</span>':`<b>${fp(s.p)}</b><span>${M.unit}</span>`;
-const costTxt=s=>s.p<0?'Precio no publicado':(isE&&s.p===0)?`${st.kwh} kWh te salen gratis`:`${st.kwh} ${M.q} ≈ ${money(s.p*st.kwh/M.div)}`;
+let AVGP=null;
+const costTxt=s=>{if(vehMatch()&&s.p>=0){const L=st.kwh,c=s.p*L/M.div,d=AVGP!=null?(AVGP-s.p)*L/M.div:0;return (L===vehFill()?(isE?'Batería llena':'Depósito lleno')+' ('+L+' '+M.q+')':L+' '+M.q)+' ≈ '+money(c)+(d>=0.05?' · '+money(d)+' menos que la media':'')}return costTxt0(s)};
+const costTxt0=s=>s.p<0?'Precio no publicado':(isE&&s.p===0)?`${st.kwh} kWh te salen gratis`:`${st.kwh} ${M.q} ≈ ${money(s.p*st.kwh/M.div)}`;
 const gmaps=s=>`https://www.google.com/maps/dir/?api=1&destination=${s.la},${s.lo}`;
 function cardHTML(s,i){
   const t=tierP(s.p),where=[s.ad,[s.pc,s.tw].filter(Boolean).join(' ')].filter(Boolean).join(' · ');
@@ -549,7 +587,8 @@ function paint(){
   if(st.sel){const X=sx(st.sel.lo),Y=sy(st.sel.y);cx.beginPath();cx.arc(X,Y,14,0,7);cx.lineWidth=4;cx.strokeStyle=col['--pink'];cx.stroke();cx.beginPath();cx.arc(X,Y,8,0,7);cx.fillStyle=col[TCOL[tierP(st.sel.p)]];cx.fill();cx.lineWidth=2;cx.strokeStyle=col['--line'];cx.stroke()}
   if(RT.on){cx.font='700 13px Figtree,system-ui,sans-serif';cx.textAlign='center';cx.textBaseline='middle';RT.stops.forEach((o,i)=>{if(o.gap)return;const X=sx(o.lo),Y=sy(o.y);cx.beginPath();cx.arc(X,Y,12,0,7);cx.fillStyle=col['--pink'];cx.fill();cx.lineWidth=2.5;cx.strokeStyle=col['--line'];cx.stroke();cx.fillStyle='#fff';cx.fillText(String(o.n),X,Y+1)});
     for(const e of [RT.pts[0],RT.pts[RT.pts.length-1]]){cx.beginPath();cx.arc(sx(e[0]),sy(e[3]),8,0,7);cx.fillStyle='#fff';cx.fill();cx.lineWidth=3;cx.strokeStyle=col['--line'];cx.stroke()}return}
-  cx.save();cx.translate(cX,cY);cx.beginPath();cx.moveTo(0,0);cx.bezierCurveTo(-13,-15,-11,-30,0,-30);cx.bezierCurveTo(11,-30,13,-15,0,0);cx.fillStyle=col['--pink'];cx.fill();cx.lineWidth=2.5;cx.strokeStyle=col['--line'];cx.stroke();cx.beginPath();cx.arc(0,-19,4,0,7);cx.fillStyle='#fff';cx.fill();cx.restore();
+  if(ME.im){cx.drawImage(ME.im,cX-ME.w/2,cY-ME.h*74/80,ME.w,ME.h)}else{
+  cx.save();cx.translate(cX,cY);cx.beginPath();cx.moveTo(0,0);cx.bezierCurveTo(-13,-15,-11,-30,0,-30);cx.bezierCurveTo(11,-30,13,-15,0,0);cx.fillStyle=col['--pink'];cx.fill();cx.lineWidth=2.5;cx.strokeStyle=col['--line'];cx.stroke();cx.beginPath();cx.arc(0,-19,4,0,7);cx.fillStyle='#fff';cx.fill();cx.restore();}
 }
 function zoom(f,px,py){px=px??W/2;py=py??H/2;const wx=(px-W/2)/V.k+V.x,wy=V.y-(py-H/2)/V.k;V.k=Math.max(18,Math.min(60000,V.k*f));V.x=wx-(px-W/2)/V.k;V.y=wy+(py-H/2)/V.k;draw()}
 const invLat=y=>(2*Math.atan(Math.exp(y*Math.PI/180))-Math.PI/2)*180/Math.PI;
@@ -608,7 +647,7 @@ function glInit(){
     map.addLayer({id:'sel',type:'circle',source:'sel',paint:{'circle-radius':15,'circle-color':'rgba(0,0,0,0)','circle-stroke-color':'#FF4F79','circle-stroke-width':4}});
     map.addLayer({id:'stops',type:'circle',source:'stops',paint:{'circle-radius':['case',['==',['get','n'],''],8,13],'circle-color':['case',['==',['get','n'],''],'#ffffff','#FF4F79'],'circle-stroke-color':'#1B1464','circle-stroke-width':2.500}});
     map.addLayer({id:'stops-n',type:'symbol',source:'stops',layout:{'text-field':['get','n'],'text-font':['Noto Sans Bold'],'text-size':13,'text-allow-overlap':true,'text-ignore-placement':true},paint:{'text-color':'#ffffff'}});
-    map.addLayer({id:'center',type:'circle',source:'center',paint:{'circle-radius':10,'circle-color':'#FF4F79','circle-stroke-color':'#ffffff','circle-stroke-width':3}});
+    map.addLayer({id:'center',type:'symbol',source:'center',layout:{'icon-image':'me','icon-allow-overlap':true,'icon-ignore-placement':true,'icon-anchor':'bottom','icon-offset':[0,ME.h*.075]}});GL.meIcon();
     map.on('click',e=>{
       if(st.pick){setPick(false);setCenter(e.lngLat.lat,e.lngLat.lng,null);return}
       const b=[[e.point.x-12,e.point.y-12],[e.point.x+12,e.point.y+12]];
@@ -741,7 +780,7 @@ function openDetail(s){
     const rows=cl.map(c=>{const n=CTN[c[0]]||['Otro conector',0];return `<tr><td>${n[1]?`<svg aria-hidden="true"><use href="#c${n[1]}"/></svg>`:''}${n[0]}</td><td>${c[1]?String(c[1]).replace('.',',')+' kW':'—'}</td><td>${CUR[c[2]]}</td><td>${c[3]}</td><td>${c[4]?c[4]+' A':'—'}${c[5]?' · '+c[5]+' V':''}</td></tr>`}).join('');
     head=`<h2>${esc(s.t||OPS[s.op])}</h2><p class="where">${esc(addr)}</p>
        <div class="tags"><span class="tag op">${esc(OPS[s.op])}</span><span class="tag"><span class="bolts">${bolts(sp)}</span>${String(s.kw).replace('.',',')} kW · ${SPEED[sp-1][0]}</span><span class="tag">${STA[sta]||'Operativo'}</span></div>`;
-    body=`${acts}
+    body=`${vehBox(s)}${acts}
      ${photos?`<section><h3>Fotos (${ph.length})</h3><div class="photos">${photos}</div></section>`:''}
      <section><h3>Características</h3><dl class="facts">
        ${f('Precio',s.p<0?'No publicado':s.p===0?'Gratis':fp(s.p)+' €/kWh')}
@@ -767,7 +806,7 @@ function openDetail(s){
     const rows=FUELS.map((n,j)=>s.pr[j]>=0?`<tr${j===fi?' class="cur"':''}><td>${n}</td><td>${fp(s.pr[j])} €/L</td><td>${money(s.pr[j]*st.kwh/1000)}</td></tr>`:`<tr class="na"><td>${n}</td><td>No disponible</td><td>—</td></tr>`).join('');
     head=`<h2>${esc(s.t||OPS[s.op])}</h2><p class="where">${esc(addr)}</p>
        <div class="tags"><span class="tag op">${esc(OPS[s.op])}</span><span class="tag">${M.fuel}</span>${s.h24?'<span class="tag h24">Abierta 24 h</span>':''}</div>`;
-    body=`${acts}
+    body=`${vehBox(s)}${acts}
      <section><h3>Todos los precios</h3><div class="ctable"><table><tr><th>Combustible</th><th>Precio</th><th>${st.kwh} litros</th></tr>${rows}</table></div></section>
      <section><h3>Características</h3><dl class="facts">
        ${f('Distancia',km(s.d))}
@@ -782,9 +821,10 @@ function openDetail(s){
   dlg.innerHTML=`<div class="dhead"><div class="price t${t}">${badge(s)}</div><div>${head}</div>
      <button class="dclose" type="button" data-x aria-label="Cerrar ficha">×</button></div><div class="dbody">${body}</div>`;
   dlg.querySelectorAll('.photos img').forEach(im=>im.addEventListener('error',()=>{const a=im.parentNode;a.innerHTML=`<span><svg aria-hidden="true"><use href="#cam"/></svg>Abrir foto ${a.dataset.n}</span>`}));
-  dlg._s=s;if(!dlg.open)dlg.showModal();dlg.scrollTop=0;
+  dlg._s=s;if(!dlg.open)dlg.showModal();dlg.scrollTop=0;vehRoad(s);
 }
 dlg.addEventListener('click',e=>{if(e.target===dlg||e.target.closest('[data-x]'))dlg.close();
+  else if(e.target.closest('[data-veh]')){dlg.close();openVeh()}
   else if(e.target.closest('[data-map]')){const s=dlg._s;dlg.close();if(getComputedStyle($('#mapbox')).display==='none')setView('map');select(s,true);$('#mapbox').scrollIntoView({block:'center',behavior:'smooth'})}});
 
 /* ---------- ubicación ---------- */
@@ -865,6 +905,217 @@ const retheme=()=>{colors();draw()};
 matchMedia('(prefers-color-scheme:dark)').addEventListener('change',retheme);
 new MutationObserver(retheme).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
 
+/* ---------- mi vehículo: catálogo, dibujos, ficha de repostaje ---------- */
+// motor: [nombre, energía (g gasolina · h híbrido · d diésel · l GLP · e eléctrico), consumo medio real (L o kWh /100 km), depósito (L) o batería útil (kWh), desde, hasta (0 = hoy)]
+const VCAT={
+car:[
+['Audi',[['A1',[['25/30 TFSI 95-110 CV','g',5.9,40,2018,0]]],['A3',[['30 TFSI 110 CV','g',6.0,50,2020,0],['30/35 TDI 116-150 CV','d',4.8,50,2020,0],['1.6 TDI 116 CV','d',4.7,50,2013,2020]]],['A4',[['35 TFSI 150 CV','g',6.9,54,2016,0],['35/40 TDI 163-204 CV','d',5.3,54,2016,0]]],['Q2',[['30 TFSI 110 CV','g',6.3,50,2017,0]]],['Q3',[['35 TFSI 150 CV','g',7.3,60,2019,0],['35 TDI 150 CV','d',5.8,60,2019,0]]],['Q5',[['40 TDI 204 CV','d',6.6,70,2017,0]]],['Q4 e-tron',[['40/45 e-tron','e',18.5,77,2021,0]]]]],
+['BMW',[['Serie 1',[['118i 136 CV','g',6.3,42,2019,0],['116d/118d','d',4.8,42,2019,0]]],['Serie 3',[['320i 184 CV','g',6.9,59,2019,0],['320d 190 CV','d',5.2,59,2019,0]]],['X1',[['sDrive18i','g',6.8,54,2016,0],['sDrive18d','d',5.3,54,2016,0]]],['X3',[['xDrive20d','d',6.3,65,2018,0]]],['i4',[['eDrive35/40','e',17.5,81,2022,0]]],['iX1',[['eDrive20','e',17.0,64,2023,0]]]]],
+['BYD',[['Dolphin',[['60 kWh','e',15.5,60,2023,0]]],['Atto 3',[['60 kWh','e',17.0,60,2022,0]]],['Seal U DM-i',[['1.5 híbrido enchufable (sin batería)','h',5.6,60,2024,0]]]]],
+['Citroën',[['C3',[['1.2 PureTech 83 CV','g',5.8,42,2017,0],['1.5 BlueHDi 100 CV','d',4.5,42,2018,0]]],['C4',[['1.2 PureTech 130 CV','g',6.2,50,2021,0],['1.5 BlueHDi 130 CV','d',4.9,50,2021,0],['ë-C4 eléctrico','e',17.0,46,2021,0]]],['C5 Aircross',[['1.2 PureTech 130 CV','g',6.7,53,2019,0],['1.5 BlueHDi 130 CV','d',5.4,53,2019,0]]],['Berlingo',[['1.2 PureTech 110 CV','g',6.8,50,2018,0],['1.5 BlueHDi 100-130 CV','d',5.5,50,2018,0]]]]],
+['Cupra',[['Formentor',[['1.5 TSI 150 CV','g',6.7,55,2020,0],['2.0 TSI 310 CV','g',8.6,55,2020,0]]],['León',[['1.5 eTSI 150 CV','g',6.1,50,2020,0]]],['Born',[['58 kWh','e',16.5,58,2021,0]]]]],
+['Dacia',[['Sandero',[['1.0 TCe 90 CV','g',6.0,50,2021,0],['1.0 ECO-G 100 CV (GLP)','l',7.6,40,2021,0]]],['Duster',[['1.0 ECO-G 100 CV (GLP)','l',8.3,49,2018,0],['1.3 TCe 130-150 CV','g',6.8,50,2018,0],['1.5 Blue dCi 115 CV','d',5.1,50,2018,0]]],['Jogger',[['1.0 ECO-G 100 CV (GLP)','l',8.0,40,2022,0],['Hybrid 140 CV','h',5.2,40,2023,0]]],['Spring',[['eléctrico','e',14.5,27,2021,0]]]]],
+['Fiat',[['500',[['1.0 Hybrid 70 CV','g',5.4,35,2020,0],['500e eléctrico','e',15.0,37,2021,0]]],['Panda',[['1.0 Hybrid 70 CV','g',5.7,37,2020,0]]],['Tipo',[['1.4 95 CV','g',6.8,50,2016,0],['1.6 MultiJet 130 CV','d',4.9,50,2016,0]]],['500X',[['1.0 FireFly 120 CV','g',6.7,48,2018,0]]]]],
+['Ford',[['Fiesta',[['1.0 EcoBoost 100-125 CV','g',5.7,42,2017,2023]]],['Focus',[['1.0 EcoBoost 125 CV','g',6.1,52,2018,0],['1.5 EcoBlue 120 CV','d',4.8,47,2018,0]]],['Puma',[['1.0 EcoBoost mHEV 125 CV','g',5.9,42,2020,0]]],['Kuga',[['1.5 EcoBoost 150 CV','g',7.2,54,2020,0],['1.5 EcoBlue 120 CV','d',5.4,54,2020,0],['2.5 FHEV híbrido 190 CV','h',5.9,54,2021,0]]],['Mustang Mach-E',[['75 kWh','e',19.5,72,2021,0]]]]],
+['Honda',[['Jazz',[['e:HEV 1.5','h',4.7,40,2020,0]]],['Civic',[['e:HEV 2.0','h',5.0,40,2022,0]]],['HR-V',[['e:HEV 1.5','h',5.5,40,2021,0]]],['CR-V',[['e:HEV 2.0','h',6.3,57,2019,0]]]]],
+['Hyundai',[['i10',[['1.0 MPI 67 CV','g',5.3,36,2020,0]]],['i20',[['1.0 T-GDi 100 CV','g',5.7,40,2020,0]]],['i30',[['1.5 T-GDi 160 CV','g',6.4,50,2020,0],['1.6 CRDi 115-136 CV','d',4.8,50,2017,0]]],['Bayon',[['1.0 T-GDi 100 CV','g',5.9,40,2021,0]]],['Kona',[['1.0 T-GDi 120 CV','g',6.3,47,2017,0],['Hybrid 141 CV','h',5.0,38,2020,0],['eléctrico 64 kWh','e',15.5,64,2018,0]]],['Tucson',[['1.6 T-GDi 150 CV','g',7.3,54,2020,0],['1.6 HEV 230 CV','h',6.1,52,2020,0],['1.6 CRDi 136 CV','d',5.9,54,2020,0]]],['Ioniq 5',[['77 kWh','e',18.0,74,2021,0]]]]],
+['Jeep',[['Renegade',[['1.0 T3 120 CV','g',6.8,48,2018,0],['1.6 MultiJet 130 CV','d',5.3,48,2018,0]]],['Compass',[['1.3 T4 130-150 CV','g',7.1,55,2018,0]]],['Avenger',[['1.2 100 CV','g',6.0,44,2023,0],['eléctrico','e',16.0,51,2023,0]]]]],
+['Kia',[['Picanto',[['1.0 67 CV','g',5.2,35,2017,0]]],['Rio',[['1.0 T-GDi 100 CV','g',5.8,45,2017,0]]],['Ceed',[['1.0 T-GDi 120 CV','g',6.1,50,2018,0],['1.6 CRDi 136 CV','d',4.9,50,2018,0]]],['XCeed',[['1.0 T-GDi 120 CV','g',6.3,50,2019,0]]],['Stonic',[['1.0 T-GDi 100 CV','g',5.9,45,2017,0]]],['Niro',[['1.6 HEV 141 CV','h',4.8,42,2016,0],['EV 64 kWh','e',16.5,64,2018,0]]],['Sportage',[['1.6 T-GDi 150 CV','g',7.3,54,2021,0],['1.6 HEV 230 CV','h',6.1,52,2021,0],['1.6 CRDi 136 CV','d',5.7,54,2018,0]]],['EV6',[['77 kWh','e',18.0,77,2021,0]]]]],
+['Lexus',[['UX',[['250h','h',5.7,43,2019,0]]],['NX',[['350h','h',6.4,55,2022,0]]]]],
+['Mazda',[['Mazda2',[['1.5 Skyactiv-G 90 CV','g',5.6,44,2015,0]]],['Mazda3',[['2.0 e-Skyactiv G 122-150 CV','g',6.1,51,2019,0]]],['CX-30',[['2.0 e-Skyactiv G 122-150 CV','g',6.4,48,2019,0]]],['CX-5',[['2.0 Skyactiv-G 165 CV','g',7.4,58,2017,0],['2.2 Skyactiv-D 150 CV','d',5.9,58,2017,0]]]]],
+['Mercedes-Benz',[['Clase A',[['A 180 / A 200','g',6.3,43,2018,0],['A 180 d / A 200 d','d',4.7,43,2018,0]]],['Clase C',[['C 200','g',7.1,66,2021,0],['C 220 d','d',5.4,66,2021,0]]],['CLA',[['CLA 180 / 200','g',6.4,43,2019,0]]],['GLA',[['GLA 200','g',6.9,43,2020,0],['GLA 200 d','d',5.3,43,2020,0]]],['GLC',[['GLC 220 d','d',6.2,62,2019,0]]],['EQA',[['EQA 250','e',17.5,67,2021,0]]]]],
+['MG',[['MG3',[['Hybrid+ 194 CV','h',4.8,36,2024,0]]],['ZS',[['1.5 VTi 106 CV','g',6.9,50,2019,0],['ZS EV','e',18.0,68,2019,0]]],['HS',[['1.5 T-GDI 162 CV','g',7.8,55,2019,0]]],['MG4',[['Electric 51/64 kWh','e',16.5,61,2022,0]]]]],
+['Mini',[['Cooper',[['1.5 136 CV','g',5.9,44,2014,0],['Cooper SE eléctrico','e',15.5,29,2020,0]]],['Countryman',[['1.5 136 CV','g',6.8,51,2017,0]]]]],
+['Mitsubishi',[['Space Star',[['1.2 80 CV','g',5.3,35,2016,0]]],['ASX',[['1.0 MPI-T 91 CV','g',6.0,42,2023,0]]],['Eclipse Cross',[['1.5 T-MIVEC 163 CV','g',7.6,63,2018,0]]]]],
+['Nissan',[['Micra',[['1.0 IG-T 92 CV','g',5.8,41,2017,2023]]],['Juke',[['1.0 DIG-T 114 CV','g',6.2,46,2020,0],['Hybrid 143 CV','h',5.1,46,2022,0]]],['Qashqai',[['1.3 DIG-T mHEV 140-158 CV','g',6.5,55,2021,0],['e-Power 190 CV','h',5.6,55,2022,0],['1.5 dCi 115 CV','d',5.1,55,2018,2021]]],['X-Trail',[['e-Power 204 CV','h',6.3,55,2022,0]]],['Leaf',[['40 kWh','e',17.0,39,2018,0]]]]],
+['Opel',[['Corsa',[['1.2 75-100 CV','g',5.7,44,2020,0],['1.5 D 100 CV','d',4.4,44,2020,0],['Corsa Electric','e',16.5,46,2020,0]]],['Astra',[['1.2 T 130 CV','g',6.1,52,2022,0],['1.5 D 130 CV','d',4.9,52,2022,0]]],['Mokka',[['1.2 T 100-130 CV','g',6.2,44,2021,0]]],['Crossland',[['1.2 110 CV','g',6.1,45,2017,0]]],['Grandland',[['1.2 T 130 CV','g',6.7,53,2018,0],['1.5 D 130 CV','d',5.4,53,2018,0]]]]],
+['Peugeot',[['208',[['1.2 PureTech 75-100 CV','g',5.7,44,2019,0],['1.5 BlueHDi 100 CV','d',4.3,44,2019,0],['e-208','e',16.0,46,2019,0]]],['2008',[['1.2 PureTech 100-130 CV','g',6.3,44,2019,0],['1.5 BlueHDi 110-130 CV','d',5.0,41,2019,0]]],['308',[['1.2 PureTech 130 CV','g',6.1,52,2021,0],['1.5 BlueHDi 130 CV','d',4.9,52,2021,0]]],['3008',[['1.2 PureTech 130 CV','g',6.7,53,2016,0],['1.5 BlueHDi 130 CV','d',5.4,53,2016,0]]],['5008',[['1.2 PureTech 130 CV','g',6.9,56,2017,0],['1.5 BlueHDi 130 CV','d',5.5,56,2017,0]]],['Rifter',[['1.5 BlueHDi 100-130 CV','d',5.5,50,2018,0]]]]],
+['Renault',[['Clio',[['1.0 TCe 90 CV','g',5.7,42,2019,0],['1.0 TCe 100 GLP','l',7.3,32,2019,0],['1.5 Blue dCi 100 CV','d',4.4,42,2019,0],['E-Tech híbrido 145 CV','h',4.7,39,2020,0]]],['Captur',[['1.0 TCe 90 CV','g',6.1,48,2020,0],['1.0 TCe 100 GLP','l',7.8,34,2020,0],['1.3 TCe 140 CV','g',6.5,48,2020,0],['E-Tech híbrido 145 CV','h',5.1,48,2021,0]]],['Mégane',[['1.3 TCe 140 CV','g',6.3,50,2016,2023],['1.5 Blue dCi 115 CV','d',4.7,47,2016,2023],['Mégane E-Tech eléctrico','e',16.5,60,2022,0]]],['Arkana',[['E-Tech híbrido 145 CV','h',5.1,50,2021,0],['1.3 TCe 140 CV','g',6.3,50,2021,0]]],['Austral',[['1.3 mild hybrid 140-160 CV','g',6.5,55,2022,0],['E-Tech híbrido 200 CV','h',5.0,55,2022,0]]],['Kangoo',[['1.5 Blue dCi 95-115 CV','d',5.6,54,2021,0]]],['Zoe',[['R110/R135 52 kWh','e',17.0,52,2019,2024]]],['5 E-Tech',[['52 kWh','e',15.5,52,2024,0]]]]],
+['Seat',[['Ibiza',[['1.0 MPI 80 CV','g',5.7,40,2017,0],['1.0 TSI 95-115 CV','g',5.5,40,2017,0],['1.0 TGI 90 CV (GNC)','g',5.5,40,2017,0],['1.6 TDI 95 CV','d',4.4,40,2017,2020]]],['Arona',[['1.0 TSI 95-115 CV','g',5.8,40,2017,0],['1.6 TDI 95 CV','d',4.7,40,2017,2021]]],['León',[['1.0/1.5 TSI 110-150 CV','g',6.0,50,2020,0],['2.0 TDI 115-150 CV','d',4.9,50,2020,0],['1.6 TDI 115 CV','d',4.7,50,2013,2020],['1.5 TSI 130 CV','g',6.1,50,2013,2020]]],['Ateca',[['1.5 TSI 150 CV','g',6.8,50,2016,0],['2.0 TDI 115-150 CV','d',5.4,50,2016,0]]],['Tarraco',[['1.5 TSI 150 CV','g',7.4,60,2019,0],['2.0 TDI 150 CV','d',6.0,60,2019,0]]]]],
+['Skoda',[['Fabia',[['1.0 TSI 95-110 CV','g',5.5,40,2021,0]]],['Scala',[['1.0 TSI 110 CV','g',5.8,50,2019,0]]],['Octavia',[['1.5 TSI 150 CV','g',6.1,45,2020,0],['2.0 TDI 115-150 CV','d',4.8,45,2020,0]]],['Kamiq',[['1.0 TSI 110 CV','g',5.9,40,2019,0]]],['Karoq',[['1.5 TSI 150 CV','g',6.7,50,2017,0],['2.0 TDI 116-150 CV','d',5.4,50,2017,0]]],['Kodiaq',[['2.0 TDI 150 CV','d',6.1,58,2017,0],['1.5 TSI 150 CV','g',7.4,58,2017,0]]],['Enyaq',[['80 / 85','e',17.5,77,2021,0]]]]],
+['Suzuki',[['Swift',[['1.2 Mild Hybrid 83 CV','g',5.0,37,2017,0]]],['Ignis',[['1.2 Mild Hybrid','g',5.2,30,2017,0]]],['Vitara',[['1.4 BoosterJet 129 CV','g',6.3,47,2015,0],['1.5 Strong Hybrid','h',5.6,47,2022,0]]],['S-Cross',[['1.4 BoosterJet mHEV','g',6.4,47,2022,0]]]]],
+['Tesla',[['Model 3',[['Gran Autonomía RWD','e',15.0,57,2019,0],['Gran Autonomía AWD','e',16.0,75,2019,0]]],['Model Y',[['Propulsión trasera','e',16.0,60,2022,0],['Gran Autonomía','e',16.8,75,2022,0]]]]],
+['Toyota',[['Aygo X',[['1.0 72 CV','g',5.3,35,2022,0]]],['Yaris',[['Hybrid 116 CV','h',4.2,36,2020,0],['1.5 Hybrid 100 CV','h',4.3,36,2012,2020]]],['Yaris Cross',[['Hybrid 116 CV','h',4.7,36,2021,0]]],['Corolla',[['1.8 Hybrid 122-140 CV','h',4.7,43,2019,0],['2.0 Hybrid 184-196 CV','h',5.1,43,2019,0]]],['C-HR',[['1.8 Hybrid 122-140 CV','h',5.0,43,2016,0],['2.0 Hybrid 184-197 CV','h',5.3,43,2019,0]]],['RAV4',[['2.5 Hybrid 218 CV','h',5.9,55,2019,0]]],['Prius',[['1.8 Hybrid','h',4.4,43,2016,2022]]]]],
+['Volkswagen',[['Polo',[['1.0 MPI 80 CV','g',5.6,40,2017,0],['1.0 TSI 95-110 CV','g',5.5,40,2017,0]]],['Golf',[['1.0/1.5 TSI 110-150 CV','g',5.9,50,2020,0],['2.0 TDI 115-150 CV','d',4.7,50,2020,0],['Golf 7 1.6 TDI 115 CV','d',4.6,50,2013,2020],['Golf 7 1.5 TSI 130-150 CV','g',6.0,50,2017,2020]]],['T-Cross',[['1.0 TSI 95-115 CV','g',5.9,40,2019,0]]],['T-Roc',[['1.0 TSI 110-115 CV','g',6.2,50,2018,0],['1.5 TSI 150 CV','g',6.5,50,2018,0],['2.0 TDI 115-150 CV','d',5.1,55,2018,0]]],['Taigo',[['1.0 TSI 95-110 CV','g',5.9,40,2021,0]]],['Tiguan',[['1.5 TSI 130-150 CV','g',7.1,58,2016,0],['2.0 TDI 150 CV','d',5.7,58,2016,0]]],['Passat',[['2.0 TDI 150 CV','d',5.1,66,2015,0],['1.5 TSI 150 CV','g',6.6,66,2015,0]]],['ID.3',[['Pro 58/59 kWh','e',15.5,58,2020,0]]],['ID.4',[['Pro 77 kWh','e',17.5,77,2021,0]]]]],
+['Volvo',[['XC40',[['B3 163 CV','g',7.3,54,2018,0],['eléctrico','e',19.0,67,2020,0]]],['XC60',[['B4 diésel 197 CV','d',6.1,71,2017,0]]],['EX30',[['eléctrico','e',16.5,64,2024,0]]]]]
+],
+van:[
+['Citroën',[['Berlingo Van',[['1.5 BlueHDi 100-130 CV','d',5.7,50,2018,0],['ë-Berlingo eléctrica','e',20.5,50,2021,0]]],['Jumpy',[['2.0 BlueHDi 120-145 CV','d',7.3,70,2016,0]]],['Jumper',[['2.2 BlueHDi 140 CV','d',9.8,90,2019,0]]]]],
+['Fiat',[['Doblò Cargo',[['1.5 BlueHDi 100 CV','d',5.8,50,2022,0],['1.3 MultiJet 95 CV','d',5.5,60,2015,2022]]],['Scudo',[['2.0 Multijet 145 CV','d',7.3,70,2022,0]]],['Ducato',[['2.2 Multijet 140 CV','d',9.8,90,2021,0],['2.3 Multijet 130-150 CV','d',10.0,90,2014,2021]]]]],
+['Ford',[['Transit Connect',[['1.5 EcoBlue 100-120 CV','d',5.8,55,2018,0]]],['Transit Courier',[['1.5 EcoBlue 100 CV','d',5.2,45,2018,0]]],['Transit Custom',[['2.0 EcoBlue 130-170 CV','d',7.8,70,2018,0]]],['Transit',[['2.0 EcoBlue 130-170 CV','d',9.3,80,2019,0],['E-Transit eléctrica','e',29.0,68,2022,0]]]]],
+['Iveco',[['Daily 3,5 t',[['2.3 136-160 CV','d',10.2,90,2019,0],['3.0 180-207 CV','d',11.6,90,2019,0]]]]],
+['Mercedes-Benz',[['Citan',[['110/112 CDI','d',5.6,50,2021,0]]],['Vito',[['114/116 CDI','d',7.5,57,2015,0],['eVito','e',27.0,60,2020,0]]],['Sprinter',[['311/314 CDI','d',9.4,71,2018,0],['316/319 CDI','d',10.0,93,2018,0],['eSprinter','e',31.0,81,2023,0]]]]],
+['Nissan',[['Townstar',[['1.3 DIG-T 130 CV','g',7.2,54,2022,0],['EV','e',20.0,45,2022,0]]],['Primastar',[['2.0 dCi 130-150 CV','d',7.4,80,2022,0]]],['Interstar',[['2.0 dCi 130-150 CV','d',9.6,80,2022,0]]]]],
+['Opel',[['Combo Cargo',[['1.5 D 100-130 CV','d',5.7,50,2018,0]]],['Vivaro',[['2.0 D 120-145 CV','d',7.3,70,2019,0],['Vivaro-e','e',27.0,68,2020,0]]],['Movano',[['2.2 BlueHDi 140 CV','d',9.8,90,2021,0]]]]],
+['Peugeot',[['Partner',[['1.5 BlueHDi 100-130 CV','d',5.7,50,2018,0],['e-Partner','e',20.5,50,2021,0]]],['Expert',[['2.0 BlueHDi 120-145 CV','d',7.3,70,2016,0]]],['Boxer',[['2.2 BlueHDi 140 CV','d',9.8,90,2019,0]]]]],
+['Renault',[['Kangoo Van',[['1.5 Blue dCi 95-115 CV','d',5.7,54,2021,0],['E-Tech eléctrica','e',19.5,45,2022,0]]],['Trafic',[['2.0 Blue dCi 130-170 CV','d',7.4,80,2021,0],['1.6 dCi 120-145 CV','d',7.2,80,2014,2021]]],['Master',[['2.3 Blue dCi 135-180 CV','d',9.7,80,2019,0],['2.0 Blue dCi 130-170 CV','d',9.2,92,2024,0]]]]],
+['Toyota',[['Proace City',[['1.5 D-4D 100-130 CV','d',5.7,50,2020,0]]],['Proace',[['2.0 D-4D 145 CV','d',7.3,70,2016,0]]]]],
+['Volkswagen',[['Caddy Cargo',[['2.0 TDI 102-122 CV','d',5.7,50,2021,0]]],['Transporter',[['2.0 TDI 110-150 CV','d',7.9,70,2015,0]]],['Crafter',[['2.0 TDI 140-177 CV','d',9.5,75,2017,0]]],['ID. Buzz Cargo',[['77 kWh','e',21.0,77,2022,0]]]]]
+],
+tl:[
+['DAF',[['LF 7,5 t',[['PX-5 4.5 L 156-210 CV','d',17.0,135,2013,0]]]]],
+['Isuzu',[['Serie N (NLR/NPR/NQR)',[['3.0/5.2 L 150-190 CV','d',14.0,100,2015,0]]]]],
+['Iveco',[['Daily 5-7,2 t',[['3.0 160-210 CV','d',13.5,100,2014,0]]]]],
+['MAN',[['TGL 7,5 t',[['D0834 4.6 L 160-220 CV','d',17.5,150,2014,0]]]]],
+['Mercedes-Benz',[['Atego 816-818 (7,5 t)',[['OM934 5.1 L 156-177 CV','d',18.0,160,2013,0]]]]],
+['Mitsubishi Fuso',[['Canter 3,5-8,5 t',[['3.0 L 130-175 CV','d',12.8,100,2013,0],['eCanter eléctrico','e',55.0,83,2017,0]]]]],
+['Renault Trucks',[['Master Red / Master chasis 4,5 t',[['2.3 dCi 145-165 CV','d',11.5,105,2019,0]]],['D 7,5 t',[['DTI 5 4.7 L 210 CV','d',17.0,150,2014,0]]]]],
+['Volvo',[['FL 7,5 t',[['D5K 210-240 CV','d',17.5,150,2014,0]]]]]
+],
+tm:[
+['DAF',[['LF / XB 12-19 t',[['PX-7 6.7 L 230-310 CV','d',23.0,210,2013,0]]],['CF / XD rígido',[['MX-11 330-450 CV','d',27.0,300,2014,0]]]]],
+['Iveco',[['Eurocargo 12-19 t',[['Tector 7 250-320 CV','d',23.0,200,2015,0]]]]],
+['MAN',[['TGM 12-26 t',[['D0836 6.9 L 250-340 CV','d',25.0,250,2014,0]]]]],
+['Mercedes-Benz',[['Atego 1218-1530',[['OM936 7.7 L 238-299 CV','d',23.5,210,2013,0]]],['Arocs / Actros rígido',[['OM470 10.7 L 360-450 CV','d',30.0,330,2014,0]]]]],
+['Renault Trucks',[['D / D Wide 12-19 t',[['DTI 8 250-320 CV','d',23.0,200,2014,0]]]]],
+['Scania',[['Serie P rígido',[['DC09 280-360 CV','d',25.5,300,2016,0]]]]],
+['Volvo',[['FL / FE 12-18 t',[['D8K 250-350 CV','d',24.0,220,2014,0]]]]]
+],
+tt:[
+['DAF',[['XF / XG 480',[['MX-13 480 CV','d',29.5,860,2017,0]]],['CF 450',[['MX-11 450 CV','d',30.0,630,2017,0]]]]],
+['Iveco',[['S-Way 490',[['Cursor 13 490 CV','d',31.0,800,2019,0]]],['S-Way GNL',[['Cursor 13 NP 460 CV (gas)','d',31.0,800,2019,0]]]]],
+['MAN',[['TGX 18.470-18.510',[['D26 470-510 CV','d',30.0,760,2020,0]]]]],
+['Mercedes-Benz',[['Actros 1845-1851',[['OM471 450-510 CV','d',29.0,800,2018,0]]]]],
+['Renault Trucks',[['T 480',[['DTI 13 480 CV','d',30.5,800,2014,0]]]]],
+['Scania',[['R / S 450-500',[['DC13 450-500 CV','d',29.5,800,2016,0]]]]],
+['Volvo',[['FH 460-500',[['D13K 460-500 CV','d',30.0,800,2013,0]]],['FH16 650-750',[['D17 650-750 CV','d',36.0,900,2013,0]]]]]
+]};
+const VTYPES={car:{n:'Coche',s:'Turismo o SUV',w:54},van:{n:'Furgoneta',s:'Hasta 3,5 t',w:58},tl:{n:'Camión pequeño',s:'3,5 a 7,5 t',w:64},tm:{n:'Camión mediano',s:'7,5 a 18 t',w:72},tt:{n:'Tráiler',s:'Cabeza tractora',w:82}};
+const VMODE={g:'g95',h:'g95',d:'da',l:'glp',e:'e'};
+const VMODEN={g95:'Gasolina 95',g98:'Gasolina 98',da:'Diésel',dp:'Diésel Premium',glp:'GLP',e:'Electricidad'};
+const VSHAPE={
+car:`<path d="M10 56v-9c0-4 3-7 7-7h8l11-14c2-3 5-4 8-4h34c4 0 7 2 9 5l8 13h12c5 0 9 4 9 9v7c0 3-2 4-4 4H14c-3 0-4-2-4-4z" fill="#7B5CFF"/><path d="M39 39l8-10c1-1.500 2.500-2 4-2h11v12zM67 27h9c2 0 3 1 4 2l7 10H67z" fill="#BEEBFF"/><rect x="101" y="46" width="9" height="5" rx="2.500" fill="#FFC93C"/><circle cx="33" cy="61" r="9" fill="#1B1464"/><circle cx="33" cy="61" r="3.500" fill="#fff" stroke="none"/><circle cx="91" cy="61" r="9" fill="#1B1464"/><circle cx="91" cy="61" r="3.500" fill="#fff" stroke="none"/>`,
+van:`<path d="M8 60V22c0-4 3-7 7-7h62c3 0 5 1 7 3l14 17h9c5 0 8 3 8 8v15c0 3-2 4-4 4H12c-3 0-4-1-4-2z" fill="#12D1B3"/><path d="M81 21h2c1 0 2 0 3 1l11 13H81z" fill="#BEEBFF"/><path d="M52 19v38" fill="none"/><rect x="105" y="45" width="8" height="5" rx="2.500" fill="#FFC93C"/><circle cx="30" cy="62" r="9" fill="#1B1464"/><circle cx="30" cy="62" r="3.500" fill="#fff" stroke="none"/><circle cx="92" cy="62" r="9" fill="#1B1464"/><circle cx="92" cy="62" r="3.500" fill="#fff" stroke="none"/>`,
+tl:`<rect x="5" y="12" width="72" height="44" rx="5" fill="#FFC93C"/><path d="M81 58V30c0-3 2-5 5-5h12c3 0 5 1 6 3l9 13c1 2 2 4 2 6v9c0 2-1 3-3 3z" fill="#FF4F79"/><path d="M87 30h10c1 0 2 0 3 1l7 10H87z" fill="#BEEBFF"/><path d="M5 56h110" stroke-width="4"/><circle cx="25" cy="63" r="8" fill="#1B1464"/><circle cx="25" cy="63" r="3" fill="#fff" stroke="none"/><circle cx="97" cy="63" r="8" fill="#1B1464"/><circle cx="97" cy="63" r="3" fill="#fff" stroke="none"/>`,
+tm:`<rect x="3" y="6" width="80" height="50" rx="5" fill="#7B5CFF"/><path d="M14 18h58M14 28h58" stroke="#fff" stroke-width="2.500" opacity=".5"/><path d="M86 58V24c0-3 2-5 5-5h11c3 0 5 1 6 3l8 13c1 2 1 3 1 5v15c0 2-1 3-3 3z" fill="#FF9A3C"/><path d="M92 25h9c1 0 2 0 3 1l7 10H92z" fill="#BEEBFF"/><path d="M3 56h113" stroke-width="4"/><circle cx="17" cy="63" r="8" fill="#1B1464"/><circle cx="17" cy="63" r="3" fill="#fff" stroke="none"/><circle cx="36" cy="63" r="8" fill="#1B1464"/><circle cx="36" cy="63" r="3" fill="#fff" stroke="none"/><circle cx="101" cy="63" r="8" fill="#1B1464"/><circle cx="101" cy="63" r="3" fill="#fff" stroke="none"/>`,
+tt:`<rect x="2" y="12" width="78" height="40" rx="4" fill="#12D1B3"/><path d="M2 52h80" stroke-width="3.500"/><path d="M84 58V16c0-4 3-6 6-6h14c3 0 5 2 6 4l5 14c1 2 1 3 1 5v22c0 2-1 3-3 3z" fill="#FF4F79"/><path d="M90 16h12c1 0 2 1 3 2l5 12H90z" fill="#BEEBFF"/><rect x="84" y="4" width="12" height="7" rx="2" fill="#FFC93C"/><circle cx="12" cy="63" r="7.500" fill="#1B1464"/><circle cx="12" cy="63" r="2.800" fill="#fff" stroke="none"/><circle cx="29" cy="63" r="7.500" fill="#1B1464"/><circle cx="29" cy="63" r="2.800" fill="#fff" stroke="none"/><circle cx="46" cy="63" r="7.500" fill="#1B1464"/><circle cx="46" cy="63" r="2.800" fill="#fff" stroke="none"/><circle cx="92" cy="63" r="7.500" fill="#1B1464"/><circle cx="92" cy="63" r="2.800" fill="#fff" stroke="none"/><circle cx="109" cy="63" r="7.500" fill="#1B1464"/><circle cx="109" cy="63" r="2.800" fill="#fff" stroke="none"/>`};
+// dibujo: 120×80; con «pin», sombra y punto rosa en (60,74) que marca la posición exacta
+function vsvg(t,pin){t=VSHAPE[t]?t:'car';
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 80" aria-hidden="true">${pin?'<ellipse cx="60" cy="74" rx="46" ry="5" fill="#1B1464" opacity=".22"/>':''}<g stroke="#1B1464" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">${VSHAPE[t]}</g>${pin?'<circle cx="60" cy="74" r="5" fill="#FF4F79" stroke="#fff" stroke-width="2.500"/>':''}</svg>`}
+
+let VEH=null;try{const v=JSON.parse(localStorage.getItem('chispa_veh')||'null');if(v&&VTYPES[v.type]&&v.cons>0&&v.tank>0&&VMODEN[v.mode])VEH=v}catch(e){}
+const vehE=()=>!!VEH&&VEH.mode==='e';
+const vehMatch=()=>!!VEH&&vehE()===isE;
+const vehFill=()=>VEH?Math.max(5,Math.round(VEH.tank*(1-(VEH.lvl!=null?VEH.lvl:.1)))):40;
+const vehName=()=>!VEH?'':(VEH.brand&&VEH.model?VEH.brand+' '+VEH.model:VTYPES[VEH.type].n);
+const n1=v=>(Math.round(v*10)/10).toString().replace('.',',');
+if(VEH&&MODES[VEH.mode])st.mode=VEH.mode;
+
+// cantidad a repostar: la del vehículo cuando coincide la energía
+function vehKwh(){const el=$('#kwh');let mx=100;
+  if(vehMatch()){st.kwh=vehFill();mx=Math.max(100,Math.ceil(VEH.tank/25)*25)}else if(st.kwh>100)st.kwh=40;
+  el.max=mx;el.step=mx>300?25:5;el.value=st.kwh}
+
+// icono «tú estás aquí» con la forma de tu vehículo
+const ME={im:null,w:54,h:36};
+function meLoad(){const t=VEH?VEH.type:'car',w=VTYPES[t].w,h=Math.round(w*80/120),im=new Image();
+  im.onload=()=>{ME.im=im;ME.w=w;ME.h=h;draw();GL.meIcon&&GL.meIcon()};
+  im.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(vsvg(t,true))}
+meLoad();
+function vehChip(){const b=$('#vehBtn');if(!b)return;
+  b.innerHTML=`<span class="vmini">${vsvg(VEH?VEH.type:'car')}</span><span>${VEH?esc(vehName())+' · '+n1(VEH.cons)+(vehE()?' kWh':' L')+'/100':'Configura tu vehículo'}</span>`;
+  b.setAttribute('aria-label',VEH?'Mi vehículo: '+vehName()+'. Cambiar':'Configurar mi vehículo')}
+
+/* ---------- ventana «Tu vehículo» ---------- */
+const vdlg=$('#vdlg');
+function openVeh(){
+  const v=VEH||{type:'car',lvl:.1};let type=v.type;
+  vdlg.innerHTML=`<div class="dhead"><div class="vic" id="vIc">${vsvg(type)}</div><div><h2>Tu vehículo</h2><p class="where">Con sus datos te decimos cuánto te cuesta llenar el depósito, ir y volver, y cuánto ahorras frente a otras gasolineras.</p></div><button class="dclose" type="button" data-x aria-label="Cerrar">×</button></div>
+  <div class="dbody">
+    <section><h3>¿Qué conduces?</h3><div class="vtypes" id="vTypes">${Object.entries(VTYPES).map(([k,o])=>`<button type="button" class="vt" data-t="${k}" aria-pressed="${k===type}">${vsvg(k)}<span>${o.n}</span><small>${o.s}</small></button>`).join('')}</div></section>
+    <section class="vsel">
+      <label>Marca<select id="vBrand"></select></label>
+      <label>Modelo<select id="vModel"></select></label>
+      <label>Motor<select id="vMotor"></select></label>
+      <label>Año<select id="vYear"></select></label>
+    </section>
+    <section><h3>Datos para los cálculos</h3><div class="vnums">
+      <label>Combustible<select id="vFuel">${Object.entries(VMODEN).map(([k,n])=>`<option value="${k}">${n}</option>`).join('')}</select></label>
+      <label><span>Consumo <small id="vConsU">L/100 km</small></span><input id="vCons" type="number" step="0.1" min="1" max="99" inputmode="decimal"></label>
+      <label><span id="vTankL">Depósito <small>litros</small></span><input id="vTank" type="number" step="1" min="5" max="2000" inputmode="numeric"></label>
+    </div><p class="where" id="vNote"></p></section>
+    <section><h3>Sueles repostar con el depósito…</h3><div class="chips" id="vLvl">${[[.1,'En reserva'],[.25,'A un cuarto'],[.5,'A la mitad']].map(([l,n])=>`<button type="button" class="chip" data-l="${l}" aria-pressed="${Math.abs((v.lvl!=null?v.lvl:.1)-l)<.01}">${n}</button>`).join('')}</div></section>
+    <div class="ractions"><button class="btn" type="button" id="vSave">Guardar mi vehículo</button><button class="btn ghost" type="button" id="vSkip">${VEH?'Cancelar':'Ahora no'}</button></div>
+  </div>`;
+  const B=$('#vBrand'),Mo=$('#vModel'),Mt=$('#vMotor'),Y=$('#vYear'),F=$('#vFuel'),C=$('#vCons'),T=$('#vTank');
+  const opt=(a,sel)=>a.map(([val,txt])=>`<option value="${esc(String(val))}"${String(val)===String(sel)?' selected':''}>${esc(txt)}</option>`).join('');
+  const brands=()=>VCAT[type];
+  const curB=()=>brands().find(b=>b[0]===B.value),curM=()=>{const b=curB();return b&&b[1].find(m=>m[0]===Mo.value)},curE=()=>{const m=curM();return m&&m[1][+Mt.value]};
+  function units(){const e=F.value==='e';$('#vConsU').textContent=e?'kWh/100 km':'L/100 km';$('#vTankL').innerHTML=e?'Batería <small>kWh</small>':'Depósito <small>litros</small>'}
+  function fillNums(){const e=curE();if(e){F.value=VMODE[e[1]];C.value=e[2];T.value=e[3];
+      $('#vNote').textContent=`Consumo medio real aproximado de este motor${e[1]==='l'?' usando GLP':''}. Si sabes el tuyo (lo marca el ordenador de a bordo), cámbialo: el cálculo será exacto.`+(type==='tt'||type==='tm'?' En camión, a plena carga gasta algo más.':'')}
+    else $('#vNote').textContent='Pon el consumo medio de tu vehículo y la capacidad del depósito.';units()}
+  function years(){const e=curE(),y1=new Date().getFullYear(),a=e?e[4]:2005,b=e&&e[5]?e[5]:y1,o=[];for(let y=b;y>=a;y--)o.push([y,y]);
+    Y.innerHTML=opt(o,v.year&&v.year>=a&&v.year<=b?v.year:b)}
+  function motors(){const m=curM();Mt.parentNode.hidden=Y.parentNode.hidden=!m;if(!m){Mt.innerHTML='';fillNums();years();return}
+    Mt.innerHTML=opt(m[1].map((e,i)=>[i,e[0]+' · '+VMODEN[VMODE[e[1]]]+(e[1]==='h'?' (híbrido)':'')]),v.motorI!=null&&v.model===Mo.value?v.motorI:0);fillNums();years()}
+  function models(){const b=curB();Mo.parentNode.hidden=!b;if(!b){Mo.innerHTML='';motors();return}
+    Mo.innerHTML=opt(b[1].map(m=>[m[0],m[0]]),v.model);motors()}
+  function fillBrands(){B.innerHTML=opt(brands().map(b=>[b[0],b[0]]).concat([['__','Otra / no está en la lista']]),v.type===type&&v.brand?v.brand:brands()[0][0]);models()}
+  fillBrands();
+  if(VEH&&VEH.type===type){F.value=VEH.mode;C.value=VEH.cons;T.value=VEH.tank;units()}
+  $('#vTypes').addEventListener('click',e=>{const b=e.target.closest('.vt');if(!b)return;type=b.dataset.t;
+    document.querySelectorAll('#vTypes .vt').forEach(x=>x.setAttribute('aria-pressed',x===b));$('#vIc').innerHTML=vsvg(type);fillBrands()});
+  B.onchange=models;Mo.onchange=motors;Mt.onchange=fillNums;F.onchange=units;
+  $('#vLvl').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;document.querySelectorAll('#vLvl .chip').forEach(x=>x.setAttribute('aria-pressed',x===b))});
+  $('#vSkip').onclick=()=>{try{localStorage.setItem('chispa_veh_skip','1')}catch(e){}vdlg.close()};
+  $('#vSave').onclick=()=>{const cons=parseFloat(String(C.value).replace(',','.')),tank=parseFloat(String(T.value).replace(',','.'));
+    if(!(cons>0&&cons<100))return toast('Pon un consumo válido (por ejemplo 6,5).');if(!(tank>=5&&tank<=2000))return toast('Pon la capacidad del depósito o de la batería.');
+    const m=curM(),lb=document.querySelector('#vLvl [aria-pressed="true"]');
+    VEH={type,brand:B.value==='__'?'':B.value,model:m?m[0]:'',motor:curE()?curE()[0]:'',motorI:m?+Mt.value:null,year:m?+Y.value:null,mode:F.value,cons:Math.round(cons*10)/10,tank:Math.round(tank),lvl:lb?+lb.dataset.l:.1};
+    try{localStorage.setItem('chispa_veh',JSON.stringify(VEH))}catch(e){}
+    vdlg.close();vehChip();meLoad();
+    if(DE&&(VEH.mode==='e'||DF))setMode(VEH.mode);
+    toast('Listo: '+vehName()+'. Toca cualquier '+(vehE()?'cargador':'gasolinera')+' para ver lo que te cuesta llenar, el viaje y lo que ahorras.')};
+  if(!vdlg.open)vdlg.showModal();vdlg.scrollTop=0}
+vdlg.addEventListener('click',e=>{if(e.target===vdlg||e.target.closest('[data-x]'))vdlg.close()});
+$('#vehBtn').onclick=openVeh;
+vehChip();
+
+/* ---------- resumen de repostaje en la ficha ---------- */
+const RKM=new Map();
+async function roadKm(a,b){const k=[a.la,a.lo,b.la,b.lo].map(x=>x.toFixed(4)).join();if(RKM.has(k))return RKM.get(k);
+  for(const base of ROUTERS){const ac=new AbortController(),t=setTimeout(()=>ac.abort(),9000);
+    try{const r=await fetch(base+a.lo+','+a.la+';'+b.lo+','+b.la+'?overview=false',{signal:ac.signal});clearTimeout(t);if(!r.ok)continue;
+      const d=await r.json();if(d.code==='Ok'&&d.routes&&d.routes[0]){const v=d.routes[0].distance/1000;RKM.set(k,v);return v}}catch(e){clearTimeout(t)}}
+  return null}
+const eur=v=>money(Math.abs(v));
+function vehBox(s){
+  if(!VEH)return `<section class="vbox"><div class="vtop"><span class="vic">${vsvg('car')}</span><div><h3>¿Cuánto te cuesta llenar aquí?</h3><p class="where">Dinos qué vehículo tienes y te calculamos el depósito, el viaje de ida y vuelta y lo que ahorras.</p></div></div><div><button class="btn" type="button" data-veh>Configurar mi vehículo</button></div></section>`;
+  if(!vehMatch())return `<section class="vbox"><div class="vtop"><span class="vic">${vsvg(VEH.type)}</span><div><h3>Tu ${esc(vehName())} usa ${VMODEN[VEH.mode].toLowerCase()}</h3><p class="where">Cambia a ${vehE()?'Eléctrico':VMODEN[VEH.mode]} arriba para ver lo que te cuesta ${vehE()?'cargar':'repostar'} aquí.</p></div></div></section>`;
+  if(s.p<0)return `<section class="vbox"><div class="vtop"><span class="vic">${vsvg(VEH.type)}</span><div><h3>Sin precio publicado</h3><p class="where">No podemos calcular lo que te cuesta ${M.verb} aquí.</p></div></div></section>`;
+  return `<section class="vbox" id="vbox">${vehCalc(s,null)}</section>`}
+function vehCalc(s,road){
+  const P=s.p/M.div,L=st.kwh,fill=L*P,u=isE?'kWh':'L',c=VEH.cons/100;
+  const one=road!=null?road:s.d*(RT.on?1:1.3),tripKm=2*one,tripQ=tripKm*c,trip=tripQ*P,tot=fill+trip;
+  const others=res.filter(o=>o!==s&&o.p>=0);
+  const pr=others.map(o=>o.p/M.div),avg=pr.length?pr.reduce((a,b)=>a+b,0)/pr.length:null,mx=pr.length?Math.max(...pr):null;
+  const near=others.slice().sort((a,b)=>a.d-b.d)[0];
+  const cost=o=>{const p=o.p/M.div,d=o===s?one:o.d*(RT.on?1:1.3);return L*p+2*d*c*p};
+  const cheap=others.slice().sort((a,b)=>cost(a)-cost(b))[0];
+  const row=(t,d)=>`<li><span>${t}</span><b class="${d>0.005?'up':d<-0.005?'down':''}">${d>0.005?'ahorras '+eur(d):d<-0.005?'pagas '+eur(d)+' más':'lo mismo'}</b></li>`;
+  let cmp='';
+  if(avg!=null)cmp+=row(`Frente al precio medio de la zona (${fp(avg*M.div)} ${M.unit})`,(avg-P)*L);
+  if(mx!=null&&mx>P)cmp+=row(`Frente a la más cara de la zona (${fp(mx*M.div)} ${M.unit})`,(mx-P)*L);
+  if(near&&near.d<s.d)cmp+=row(`Frente a la más cercana, ${esc(near.t||OPS[near.op])} a ${km(near.d)}, contando el viaje`,cost(near)-tot);
+  let verd='',cls='';
+  if(cheap){const d=cost(cheap)-tot;
+    if(d>=-0.3){cls='';verd=RT.on?`Buena parada: es de las que menos te cuestan en esta ruta, contando el desvío.`:`Compensa: es de las que menos te cuestan de la zona, ya contando lo que gastas en ir y volver.`}
+    else{cls='bad';verd=`${esc(cheap.t||OPS[cheap.op])}${RT.on?' (km '+Math.round(cheap.rk)+')':' a '+km(cheap.d)} te sale ${eur(d)} más barata, contando el viaje.`}}
+  return `<div class="vtop"><span class="vic">${vsvg(VEH.type)}</span><div><h3>Tu ${isE?'carga':'repostaje'} · ${esc(vehName())}</h3><p class="where">${n1(VEH.cons)} ${u}/100 km · ${isE?'batería':'depósito'} de ${VEH.tank} ${u} · <button type="button" class="linkbtn" data-veh>cambiar</button></p></div></div>
+    <div class="vgrid">
+      <div class="vk"><span>${L===vehFill()?(isE?'Cargar la batería':'Llenar el depósito'):(isE?'Cargar ':'Repostar ')+L+' '+u}</span><b>${money(fill)}</b><small>${L} ${u} a ${fp(s.p)} ${M.unit}</small></div>
+      <div class="vk"><span>${RT.on?'Desvío ida y vuelta':'Ir y volver'}</span><b>${money(trip)}</b><small>${road!=null?'':'≈ '}${km(tripKm)} · ${n1(tripQ)} ${u}${road!=null?' por carretera':''}</small></div>
+      <div class="vk tot"><span>Total</span><b>${money(tot)}</b><small>${isE?'carga':'depósito'} + viaje</small></div>
+    </div>
+    ${cmp?`<ul class="vcmp">${cmp}</ul>`:''}
+    ${verd?`<p class="vverd ${cls}">${verd}</p>`:''}`}
+function vehRoad(s){if(!VEH||!vehMatch()||s.p<0||RT.on||!navigator.onLine)return;
+  roadKm({la:st.lat,lo:st.lon},s).then(km=>{if(km==null||dlg._s!==s||!dlg.open)return;const b=$('#vbox');if(b)b.innerHTML=vehCalc(s,km)})}
+
+GL.meIcon=()=>{const m=GL.map;if(!m||!ME.im||!GL.on&&!m.getSource('center'))return;try{const c=document.createElement('canvas');c.width=ME.w*2;c.height=ME.h*2;const g=c.getContext('2d');g.drawImage(ME.im,0,0,c.width,c.height);
+  if(m.hasImage('me'))m.removeImage('me');m.addImage('me',g.getImageData(0,0,c.width,c.height),{pixelRatio:2});if(m.getLayer('center'))m.setLayoutProperty('center','icon-offset',[0,ME.h*.075])}catch(e){}};
+
 /* ---------- arranque ---------- */
 $('#rad').value=st.r;$('#rOut').textContent=st.r+' km';$('#hereName').textContent=st.name;colors();
 const dmy=d=>d.split('-').reverse().join('/');
@@ -880,6 +1131,7 @@ Promise.all([getData('stations.json'),getData('fuel.json').catch(()=>null)]).the
   if(fu)SF=fu.s.map(r=>({la:r[0],lo:r[1],t:r[2],ad:r[3],tw:r[4],pc:r[5],op:r[6],pr:r.slice(7,12),hor:r[12],h24:/24\s*H|00:00-(23:59|24:00|00:00)/i.test(r[12])&&/L-D/i.test(r[12]),prov:r[13],id:r[14],p:-1,y:mercY(r[0]),d:0}));
   $('#dates').textContent=` Cargadores: datos del ${dmy(d.date)}.`+(fu?` Carburantes: precios del ${dmy(fu.date)}.`:'');
   if(size()){fit();V.fitted=1}setMode(st.mode,true);glInit();
+  if(!VEH){let sk=null;try{sk=localStorage.getItem('chispa_veh_skip')}catch(e){}if(!sk)setTimeout(openVeh,700)}
 }).catch(()=>{$('#list').innerHTML='<div class="empty"><h3>No se han podido cargar los datos</h3>Recarga la página para volver a intentarlo.</div>'});
 })();
 </script>
