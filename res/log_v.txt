@@ -1,0 +1,18 @@
+LOC Alfafar
+GL0 true
+CTR [-0.3833,39.4167]
+GL1 true
+MARK intro 19.53
+MARK s1 23.50
+  used 5.49 of 4.6
+MARK s2 28.98
+  used 9.19 of 4.4
+MARK s3 38.18
+  used 5.10 of 6.4
+MARK s4 44.58
+  used 19.00 of 6.6
+MARK s5 63.58
+  used 6.32 of 5.2
+MARK fade 69.90
+MARK end 71.10
+VIDEO /home/runner/work/chispa/chispa/rec/out_v/page@a4dbaba287b12580d1cb48c589e7fba1.webm
