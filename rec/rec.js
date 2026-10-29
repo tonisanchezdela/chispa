@@ -51,13 +51,13 @@ await fr().evaluate(()=>{const s=document.querySelector('#vMotor');s.value='1';s
 await tap('#vSave',{after:300});await hide();
 await padTo(4.4);
 // 3 coste y ahorro
-mark('s3');await cap('Nuevo · Tu repostaje','Lo que cuesta y <em>lo que ahorras</em>',['Depósito, ir y volver, y total','Hasta 20 € por depósito']);
+mark('s3');await cap('Nuevo · Tu repostaje','Lo que cuesta y <em>lo que ahorras</em>',['Depósito, ir y volver, y total','Frente a la media y la más cara']);
 await scrollTo('#stats',10);await tap('#list .card h3',{after:300});await hide();await w(1400);
 await fr().evaluate(t=>document.querySelector('#dlg').scrollTo({top:t,behavior:'smooth'}),V?170:190);await w(1500);await shot('3');
 await padTo(6.4);
 // 4 mapa y ruta
 mark('s4');await cap('Mapa y rutas','Planifica tu <em>viaje</em>',['Marca y precio en el mapa','Las paradas más baratas']);
-await fr().evaluate(()=>document.querySelector('#dlg').close());await scrollTo('#tabs',14);await tap('#tabs [data-v=map]',{after:200});await hide();
+await fr().evaluate(()=>document.querySelector('#dlg').close());await scrollTo('#tabs',14);await tap('#tabs [data-v=map]',{after:200});await hide();await fr().evaluate(()=>{const x=document.querySelector('#pop .x');if(x)x.click()});
 if(ctr){await fr().evaluate(c=>GL.map.flyTo({center:c,zoom:13.6,duration:1800}),ctr);await w(2100)}else await w(1200);await shot('4a');
 await fr().evaluate(()=>scrollTo({top:0,behavior:'smooth'}));await w(300);
 await tap('#routeBtn',{after:500});await f.locator('#rTo').fill('Madri');await fr().evaluate(()=>document.querySelector('#rTo').dispatchEvent(new Event('input',{bubbles:true})));await w(300);
