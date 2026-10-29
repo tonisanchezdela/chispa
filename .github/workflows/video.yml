@@ -18,16 +18,17 @@ jobs:
         run: |
           npm i playwright@1.63.0
           npx playwright install --with-deps chromium
-          mkdir -p out shots
+          mkdir -p out_h out_v shots_h shots_v
       - name: Grabar
         working-directory: rec
         run: |
           python3 -m http.server 8770 >/dev/null 2>&1 &
           sleep 2
-          node rec.js | tee log.txt
+          SHOTS=1 ORIENT=h node rec.js | tee log_h.txt
+          SHOTS=1 ORIENT=v node rec.js | tee log_v.txt
       - name: Guardar resultado en la rama
         if: always()
         run: |
-          mkdir -p res && cp -r rec/out rec/shots rec/log.txt res/ || true
+          mkdir -p res && cp -r rec/out_h rec/out_v rec/shots_h rec/shots_v rec/log_h.txt rec/log_v.txt res/ || true
           git config user.name github-actions && git config user.email github-actions@users.noreply.github.com
           git add res && git commit -m "Resultado de la grabación [skip ci]" && git push

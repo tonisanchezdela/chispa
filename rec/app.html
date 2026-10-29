@@ -587,7 +587,7 @@ function paint(){
   if(st.sel){const X=sx(st.sel.lo),Y=sy(st.sel.y);cx.beginPath();cx.arc(X,Y,14,0,7);cx.lineWidth=4;cx.strokeStyle=col['--pink'];cx.stroke();cx.beginPath();cx.arc(X,Y,8,0,7);cx.fillStyle=col[TCOL[tierP(st.sel.p)]];cx.fill();cx.lineWidth=2;cx.strokeStyle=col['--line'];cx.stroke()}
   if(RT.on){cx.font='700 13px Figtree,system-ui,sans-serif';cx.textAlign='center';cx.textBaseline='middle';RT.stops.forEach((o,i)=>{if(o.gap)return;const X=sx(o.lo),Y=sy(o.y);cx.beginPath();cx.arc(X,Y,12,0,7);cx.fillStyle=col['--pink'];cx.fill();cx.lineWidth=2.5;cx.strokeStyle=col['--line'];cx.stroke();cx.fillStyle='#fff';cx.fillText(String(o.n),X,Y+1)});
     for(const e of [RT.pts[0],RT.pts[RT.pts.length-1]]){cx.beginPath();cx.arc(sx(e[0]),sy(e[3]),8,0,7);cx.fillStyle='#fff';cx.fill();cx.lineWidth=3;cx.strokeStyle=col['--line'];cx.stroke()}return}
-  if(ME.im){cx.drawImage(ME.im,cX-ME.w/2,cY-ME.h*74/80,ME.w,ME.h)}else{
+  if(ME.im){cx.drawImage(ME.im,cX-ME.w/2,cY-ME.h/2,ME.w,ME.h)}else{
   cx.save();cx.translate(cX,cY);cx.beginPath();cx.moveTo(0,0);cx.bezierCurveTo(-13,-15,-11,-30,0,-30);cx.bezierCurveTo(11,-30,13,-15,0,0);cx.fillStyle=col['--pink'];cx.fill();cx.lineWidth=2.5;cx.strokeStyle=col['--line'];cx.stroke();cx.beginPath();cx.arc(0,-19,4,0,7);cx.fillStyle='#fff';cx.fill();cx.restore();}
 }
 function zoom(f,px,py){px=px??W/2;py=py??H/2;const wx=(px-W/2)/V.k+V.x,wy=V.y-(py-H/2)/V.k;V.k=Math.max(18,Math.min(60000,V.k*f));V.x=wx-(px-W/2)/V.k;V.y=wy+(py-H/2)/V.k;draw()}
@@ -647,7 +647,7 @@ function glInit(){
     map.addLayer({id:'sel',type:'circle',source:'sel',paint:{'circle-radius':15,'circle-color':'rgba(0,0,0,0)','circle-stroke-color':'#FF4F79','circle-stroke-width':4}});
     map.addLayer({id:'stops',type:'circle',source:'stops',paint:{'circle-radius':['case',['==',['get','n'],''],8,13],'circle-color':['case',['==',['get','n'],''],'#ffffff','#FF4F79'],'circle-stroke-color':'#1B1464','circle-stroke-width':2.500}});
     map.addLayer({id:'stops-n',type:'symbol',source:'stops',layout:{'text-field':['get','n'],'text-font':['Noto Sans Bold'],'text-size':13,'text-allow-overlap':true,'text-ignore-placement':true},paint:{'text-color':'#ffffff'}});
-    map.addLayer({id:'center',type:'symbol',source:'center',layout:{'icon-image':'me','icon-allow-overlap':true,'icon-ignore-placement':true,'icon-anchor':'bottom','icon-offset':[0,ME.h*.075]}});GL.meIcon();
+    map.addLayer({id:'center',type:'symbol',source:'center',layout:{'icon-image':'me','icon-allow-overlap':true,'icon-ignore-placement':false,'icon-anchor':'center'}});GL.meIcon();
     map.on('click',e=>{
       if(st.pick){setPick(false);setCenter(e.lngLat.lat,e.lngLat.lng,null);return}
       const b=[[e.point.x-12,e.point.y-12],[e.point.x+12,e.point.y+12]];
@@ -993,6 +993,15 @@ tt:`<rect x="2" y="12" width="78" height="40" rx="4" fill="#12D1B3"/><path d="M2
 function vsvg(t,pin){t=VSHAPE[t]?t:'car';
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 80" aria-hidden="true">${pin?'<ellipse cx="60" cy="74" rx="46" ry="5" fill="#1B1464" opacity=".22"/>':''}<g stroke="#1B1464" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">${VSHAPE[t]}</g>${pin?'<circle cx="60" cy="74" r="5" fill="#FF4F79" stroke="#fff" stroke-width="2.500"/>':''}</svg>`}
 
+
+// vista desde arriba para el mapa (mirando hacia el norte): [alto del dibujo, alto en pantalla, contenido]
+const VTOP={
+car:[104,46,`<rect x="16" y="8" width="36" height="92" rx="16" fill="#1B1464" opacity=".22" stroke="none"/><rect x="7" y="34" width="8" height="6" rx="2.500" fill="#7B5CFF"/><rect x="45" y="34" width="8" height="6" rx="2.500" fill="#7B5CFF"/><rect x="12" y="4" width="36" height="92" rx="16" fill="#7B5CFF"/><path d="M17 31q13-8 26 0l-3 11H20z" fill="#BEEBFF"/><rect x="19" y="45" width="22" height="25" rx="5" fill="#9A82FF"/><path d="M20 73h20l2 7q-12 6-24 0z" fill="#BEEBFF"/><rect x="16" y="6" width="8" height="4" rx="2" fill="#FFC93C" stroke-width="1.500"/><rect x="36" y="6" width="8" height="4" rx="2" fill="#FFC93C" stroke-width="1.500"/>`],
+van:[120,50,`<rect x="15" y="8" width="42" height="110" rx="10" fill="#1B1464" opacity=".22" stroke="none"/><rect x="5" y="27" width="8" height="6" rx="2.500" fill="#12D1B3"/><rect x="51" y="27" width="8" height="6" rx="2.500" fill="#12D1B3"/><rect x="11" y="4" width="42" height="110" rx="10" fill="#12D1B3"/><path d="M15 23q17-8 34 0l-3 11H18z" fill="#BEEBFF"/><rect x="17" y="39" width="30" height="69" rx="4" fill="#5CE6CF"/><path d="M17 62h30M17 85h30" fill="none" stroke-width="2"/><rect x="15" y="6" width="8" height="4" rx="2" fill="#FFC93C" stroke-width="1.500"/><rect x="41" y="6" width="8" height="4" rx="2" fill="#FFC93C" stroke-width="1.500"/>`],
+tl:[128,54,`<rect x="13" y="8" width="46" height="118" rx="6" fill="#1B1464" opacity=".22" stroke="none"/><rect x="4" y="16" width="8" height="6" rx="2.500" fill="#FF4F79"/><rect x="52" y="16" width="8" height="6" rx="2.500" fill="#FF4F79"/><rect x="12" y="4" width="40" height="30" rx="9" fill="#FF4F79"/><path d="M16 15q16-7 32 0l-2 8H18z" fill="#BEEBFF"/><rect x="9" y="38" width="46" height="86" rx="4" fill="#FFC93C"/><path d="M9 66h46M9 95h46" fill="none" stroke-width="2"/>`],
+tm:[144,60,`<rect x="12" y="8" width="48" height="134" rx="6" fill="#1B1464" opacity=".22" stroke="none"/><rect x="4" y="17" width="8" height="6" rx="2.500" fill="#FF9A3C"/><rect x="52" y="17" width="8" height="6" rx="2.500" fill="#FF9A3C"/><rect x="12" y="4" width="40" height="32" rx="9" fill="#FF9A3C"/><path d="M16 16q16-7 32 0l-2 9H18z" fill="#BEEBFF"/><rect x="8" y="40" width="48" height="100" rx="4" fill="#7B5CFF"/><path d="M8 65h48M8 90h48M8 115h48" fill="none" stroke-width="2"/>`],
+tt:[168,68,`<rect x="12" y="8" width="48" height="158" rx="6" fill="#1B1464" opacity=".22" stroke="none"/><rect x="4" y="18" width="8" height="6" rx="2.500" fill="#FF4F79"/><rect x="52" y="18" width="8" height="6" rx="2.500" fill="#FF4F79"/><rect x="12" y="4" width="40" height="34" rx="9" fill="#FF4F79"/><path d="M16 17q16-7 32 0l-2 9H18z" fill="#BEEBFF"/><rect x="26" y="37" width="12" height="9" fill="#1B1464"/><rect x="8" y="44" width="48" height="120" rx="4" fill="#12D1B3"/><path d="M8 74h48M8 104h48M8 134h48" fill="none" stroke-width="2"/>`]};
+function vtop(t){const v=VTOP[t]||VTOP.car;return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 ${v[0]}"><g stroke="#1B1464" stroke-width="3" stroke-linejoin="round">${v[2]}</g></svg>`}
 let VEH=null;try{const v=JSON.parse(localStorage.getItem('chispa_veh')||'null');if(v&&VTYPES[v.type]&&v.cons>0&&v.tank>0&&VMODEN[v.mode])VEH=v}catch(e){}
 const vehE=()=>!!VEH&&VEH.mode==='e';
 const vehMatch=()=>!!VEH&&vehE()===isE;
@@ -1008,9 +1017,9 @@ function vehKwh(){const el=$('#kwh');let mx=100;
 
 // icono «tú estás aquí» con la forma de tu vehículo
 const ME={im:null,w:54,h:36};
-function meLoad(){const t=VEH?VEH.type:'car',w=VTYPES[t].w,h=Math.round(w*80/120),im=new Image();
+function meLoad(){const t=VEH?VEH.type:'car',v=VTOP[t]||VTOP.car,h=v[1],w=Math.round(h*64/v[0]),im=new Image();
   im.onload=()=>{ME.im=im;ME.w=w;ME.h=h;draw();GL.meIcon&&GL.meIcon()};
-  im.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(vsvg(t,true))}
+  im.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(vtop(t))}
 meLoad();
 function vehChip(){const b=$('#vehBtn');if(!b)return;
   b.innerHTML=`<span class="vmini">${vsvg(VEH?VEH.type:'car')}</span><span>${VEH?esc(vehName())+' · '+n1(VEH.cons)+(vehE()?' kWh':' L')+'/100':'Configura tu vehículo'}</span>`;
@@ -1114,7 +1123,7 @@ function vehRoad(s){if(!VEH||!vehMatch()||s.p<0||RT.on||!navigator.onLine)return
   roadKm({la:st.lat,lo:st.lon},s).then(km=>{if(km==null||dlg._s!==s||!dlg.open)return;const b=$('#vbox');if(b)b.innerHTML=vehCalc(s,km)})}
 
 GL.meIcon=()=>{const m=GL.map;if(!m||!ME.im||!GL.on&&!m.getSource('center'))return;try{const c=document.createElement('canvas');c.width=ME.w*2;c.height=ME.h*2;const g=c.getContext('2d');g.drawImage(ME.im,0,0,c.width,c.height);
-  if(m.hasImage('me'))m.removeImage('me');m.addImage('me',g.getImageData(0,0,c.width,c.height),{pixelRatio:2});if(m.getLayer('center'))m.setLayoutProperty('center','icon-offset',[0,ME.h*.075])}catch(e){}};
+  if(m.hasImage('me'))m.removeImage('me');m.addImage('me',g.getImageData(0,0,c.width,c.height),{pixelRatio:2})}catch(e){}};
 
 /* ---------- arranque ---------- */
 $('#rad').value=st.r;$('#rOut').textContent=st.r+' km';$('#hereName').textContent=st.name;colors();
